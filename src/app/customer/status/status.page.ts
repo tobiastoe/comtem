@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../customer.model';
 
 @Component({
   selector: 'app-status',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./status.page.scss'],
 })
 export class StatusPage implements OnInit {
+  loadedCustomer: Customer;
 
-  constructor() { }
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
+    this.loadedCustomer = this.customerService.customer;
   }
 
 }

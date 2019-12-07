@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'customer', pathMatch: 'full' },
@@ -9,11 +10,13 @@ const routes: Routes = [
   },
   {
     path: 'customer',
-    loadChildren: () => import('./customer/customer.module').then( m => m.CustomerPageModule)
+    loadChildren: () => import('./customer/customer.module').then( m => m.CustomerPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'retailer',
-    loadChildren: () => import('./retailer/retailer.module').then( m => m.RetailerPageModule)
+    loadChildren: () => import('./retailer/retailer.module').then( m => m.RetailerPageModule),
+    canLoad: [AuthGuard]
   },
 ];
 

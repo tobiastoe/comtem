@@ -1,5 +1,7 @@
 {
   "name": "comtem",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

@@ -5,6 +5,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
+import { CustomerService } from '../customer/customer.service';
 
 @Component({
   selector: 'app-auth',
@@ -20,15 +21,22 @@ export class AuthPage implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private customerService: CustomerService
     ) { }
 
   ngOnInit() {
   }
 
   authenticate(email: string, password: string) {
+    let loadingMessage;
+    if (this.isLogin) {
+      loadingMessage = 'Logging in...';
+    } else {
+      loadingMessage = 'Signing up...';
+    }
     this.isLoading = true;
     this.loadingCtrl
-      .create({ keyboardClose: true, message: 'Logging in...'})
+      .create({ keyboardClose: true, message: loadingMessage})
       .then(loadingEl => {
         loadingEl.present();
         let authObs: Observable<AuthResponseData>;
@@ -68,9 +76,12 @@ export class AuthPage implements OnInit {
     }
     const email = form.value.email;
     const password = form.value.password;
-    console.log(email, password);
+    const name = form.value.name;
+    const imageUrl = form.value.imageUrl;
+    const birthday = form.value.birthday;
 
     this.authenticate(email, password);
+    this.customerService.addCustomer(email, password, name, imageUrl, birthday).subscribe();
     form.reset();
   }
 

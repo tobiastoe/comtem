@@ -13,7 +13,6 @@ export class StatusPage implements OnInit {
 
   ngOnInit() {
     this.loadedCustomer = this.customerService.customer;
-    this.customerService.sendData().subscribe();
   }
 
   emotionChanged(newEmotion) {
@@ -23,7 +22,6 @@ export class StatusPage implements OnInit {
       emotion: this.loadedCustomer.emotion,
       time: new Date(),
       shop: this.loadedCustomer.currentShop});
-    console.log(this.loadedCustomer);
   }
 
 }

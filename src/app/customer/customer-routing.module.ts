@@ -31,7 +31,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/customer/tabs/status',
     pathMatch: 'full',
-  },
+  }
 ];
 
 @NgModule({

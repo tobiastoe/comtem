@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Customer } from './customer.model';
 import { tap, switchMap, take, map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,32 @@ export class CustomerService {
   private _customer: Customer = {
     id: 'c1',
     name: 'Tobias',
+    email: 'test@test.com',
+    address: 'Wilhelm-Bode-Strasse',
     imageUrl: 'https://www.vorname.com/cache/inline-images/tobias-images-name-moods-namensbild-t-m-jpg.m.40.600.png',
+    birthday: null,
     emotion: 'Happy',
-    lastEmotion: '',
+    lastEmotion: null,
     emotionHistory: [],
     currentShop: 'Kabinett24'
   };
 
-  sendData() {
+  addCustomer(name: string, email: string, address: string, imageUrl: string, birthday: Date) {
+    const newCustomer = new Customer(
+      Math.random().toString(),
+      name,
+      email,
+      address,
+      imageUrl,
+      birthday,
+      '',
+      '',
+      [],
+      '',
+    );
+
     return this.http
-      .post<{name: string}>('https://comtem-9282e.firebaseio.com/customers.json', {...this.customer, id: null})
+      .post<{name: string}>('https://comtem-9282e.firebaseio.com/customers.json', {...newCustomer, id: null})
       .pipe(
         tap(resData => {
           this.customer.id = resData.name;
@@ -35,6 +52,4 @@ export class CustomerService {
   get customer() {
     return this._customer;
   }
-
-
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-status',
@@ -9,10 +10,14 @@ import { Customer } from '../customer.model';
 })
 export class StatusPage implements OnInit {
   loadedCustomer: Customer;
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private authService: AuthService) { }
 
   ngOnInit() {
     this.loadedCustomer = this.customerService.customer;
+  }
+
+  ionViewWillEnter() {
+    this.customerService.fetchingCustomer().subscribe();
   }
 
   emotionChanged(newEmotion) {

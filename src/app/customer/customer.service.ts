@@ -37,7 +37,6 @@ export class CustomerService {
       [],
       '',
     );
-
     return this.http
       .post<{name: string}>('https://comtem-9282e.firebaseio.com/customers.json', {...newCustomer, id: null})
       .pipe(
@@ -46,6 +45,21 @@ export class CustomerService {
         })
       );
   }
+
+  fetchingCustomer() {
+    // return this.http
+    // .get<{Customer}>(`https://comtem-9282e.firebaseio.com/customers.json?orderBy="userId"&equalTo="${this.authService.userId}"`)
+    // .pipe(
+    //   tap(resData => {
+    //     this._customer = resData;
+    //   })
+    // );
+    return this.http
+      .get(`https://comtem-9282e.firebaseio.com/customers.json?orderBy="email"&equalTo="test2@test.com"`)
+      .pipe(tap(resData => {
+        console.log(resData);
+      }));
+    }
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 

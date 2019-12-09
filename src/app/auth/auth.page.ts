@@ -49,7 +49,9 @@ export class AuthPage implements OnInit {
           console.log(resData);
           this.isLoading = false;
           loadingEl.dismiss();
-          this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe();
+          if (!this.isLogin) {
+            this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe();
+          }
           this.router.navigateByUrl('/customer/tabs/status');
         }, errRes => {
           loadingEl.dismiss();

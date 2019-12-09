@@ -11,15 +11,8 @@ export class CustomerService {
     name: 'Tobias',
     imageUrl: 'https://www.vorname.com/cache/inline-images/tobias-images-name-moods-namensbild-t-m-jpg.m.40.600.png',
     emotion: 'Happy',
-    emotionHistory: [{
-      emotion: 'Happy',
-      time: 'Friday',
-      shop: 'Kabinett24'
-    }, {
-      emotion: 'Sad',
-      time: 'Saturday',
-      shop: 'Kabinett24'
-    }],
+    lastEmotion: '',
+    emotionHistory: [],
     currentShop: 'Kabinett24'
   };
 

@@ -6,6 +6,7 @@ export class Customer {
         public name: string,
         public imageUrl: string,
         public emotion: string,
+        public lastEmotion: string,
         public emotionHistory: CustomerHistory [],
         public currentShop: string,
     ) {}

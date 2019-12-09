@@ -17,7 +17,14 @@
           </ion-card-header>
           <ion-card-content>
             <ion-list>
-              <ion-item button lines="none" *ngFor="let emotion of this.loadedCustomer.emotionHistory" color="primary">{{emotion.emotion}}, {{emotion.shop}}, {{emotion.time}}</ion-item>
+              <ion-item 
+                  button lines="none"
+                  *ngFor="let emotion of this.loadedCustomer.emotionHistory" 
+                  [color]="setColor(emotion.emotion)"   
+                  margin="2px"
+                  >
+                  <ion-label>{{emotion.emotion}}, {{emotion.shop}}, {{emotion.time}}</ion-label>
+              </ion-item>
             </ion-list>
           </ion-card-content>
         </ion-card>

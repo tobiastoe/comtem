@@ -15,4 +15,21 @@ export class HistoryPage implements OnInit {
   ngOnInit() {
     this.loadedCustomer = this.customerSerice.customer;
   }
+
+  setColor(currentEmotion) {
+    switch (currentEmotion) {
+      case 'Happy': {
+        return 'success';
+      }
+      case 'Relaxed': {
+        return 'medium';
+      }
+      case 'Sad': {
+        return 'warning';
+      }
+      case 'Stressed': {
+        return 'danger';
+      }
+    }
+  }
 }

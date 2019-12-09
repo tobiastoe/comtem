@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../customer.model';
 
 @Component({
   selector: 'app-history',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
+  loadedCustomer: Customer;
 
-  constructor() { }
+  constructor(private customerSerice: CustomerService) { }
 
   ngOnInit() {
+    this.loadedCustomer = this.customerSerice.customer;
   }
-
 }

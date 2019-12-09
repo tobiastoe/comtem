@@ -17,7 +17,10 @@ export class StatusPage implements OnInit {
 
   emotionChanged(newEmotion) {
     this.loadedCustomer.emotion = newEmotion;
-    this.loadedCustomer.emotionHistory.push(this.loadedCustomer.emotion);
+    this.loadedCustomer.emotionHistory.push({
+      emotion: this.loadedCustomer.emotion,
+      time: 'Saturday',
+      shop: 'Kabinett24'});
     console.log(this.loadedCustomer.emotion);
     console.log(this.loadedCustomer.emotionHistory);
   }

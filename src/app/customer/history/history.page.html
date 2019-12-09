@@ -3,10 +3,25 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
       </ion-buttons>
-    <ion-title>history</ion-title>
+    <ion-title>History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Your last emotions </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item button lines="none" *ngFor="let emotion of this.loadedCustomer.emotionHistory" color="primary">{{emotion.emotion}}, {{emotion.shop}}, {{emotion.time}}</ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

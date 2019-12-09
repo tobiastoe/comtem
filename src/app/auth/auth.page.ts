@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, AuthResponseData } from './auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+
+import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
   selector: 'app-auth',

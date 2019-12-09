@@ -13,6 +13,7 @@ export class StatusPage implements OnInit {
 
   ngOnInit() {
     this.loadedCustomer = this.customerService.customer;
+    this.customerService.sendData().subscribe();
   }
 
   emotionChanged(newEmotion) {
@@ -22,31 +23,7 @@ export class StatusPage implements OnInit {
       emotion: this.loadedCustomer.emotion,
       time: new Date(),
       shop: this.loadedCustomer.currentShop});
-    console.log(this.loadedCustomer.emotion);
-    console.log(this.loadedCustomer.emotionHistory);
+    console.log(this.loadedCustomer);
   }
-
-
-  // ishappy() {
-  //   this.loadedCustomer.emotion = 'happy';
-  //   this.loadedCustomer.emotionHistory.push(this.loadedCustomer.emotion);
-  //   console.log(this.loadedCustomer.emotion);
-  //   console.log(this.loadedCustomer.emotionHistory);
-  // }
-
-  // isrelaxed() {
-  //   this.loadedCustomer.emotion = 'relaxed';
-  //   console.log(this.loadedCustomer.emotion);
-  // }
-
-  // issad() {
-  //   this.loadedCustomer.emotion = 'sad';
-  //   console.log(this.loadedCustomer.emotion);
-  // }
-
-  // isstressed() {
-  //   this.loadedCustomer.emotion = 'stressed';
-  //   console.log(this.loadedCustomer.emotion);
-  // }
 
 }

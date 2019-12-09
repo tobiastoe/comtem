@@ -1,5 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import { Customer } from './customer.model';
+import { tap, switchMap, take, map } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +20,21 @@ export class CustomerService {
     currentShop: 'Kabinett24'
   };
 
+  sendData() {
+    return this.http
+      .post<{name: string}>('https://comtem-9282e.firebaseio.com/customers.json', {...this.customer, id: null})
+      .pipe(
+        tap(resData => {
+          this.customer.id = resData.name;
+        })
+      );
+  }
+
+  constructor(private authService: AuthService, private http: HttpClient) {}
+
   get customer() {
     return this._customer;
   }
 
 
-  constructor() { }
 }

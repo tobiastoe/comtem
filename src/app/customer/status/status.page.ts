@@ -15,24 +15,33 @@ export class StatusPage implements OnInit {
     this.loadedCustomer = this.customerService.customer;
   }
 
-  ishappy() {
-    this.loadedCustomer.emotion = 'happy';
+  emotionChanged(newEmotion) {
+    this.loadedCustomer.emotion = newEmotion;
+    this.loadedCustomer.emotionHistory.push(this.loadedCustomer.emotion);
     console.log(this.loadedCustomer.emotion);
+    console.log(this.loadedCustomer.emotionHistory);
   }
 
-  isrelaxed() {
-    this.loadedCustomer.emotion = 'relaxed';
-    console.log(this.loadedCustomer.emotion);
-  }
+  // ishappy() {
+  //   this.loadedCustomer.emotion = 'happy';
+  //   this.loadedCustomer.emotionHistory.push(this.loadedCustomer.emotion);
+  //   console.log(this.loadedCustomer.emotion);
+  //   console.log(this.loadedCustomer.emotionHistory);
+  // }
 
-  issad() {
-    this.loadedCustomer.emotion = 'sad';
-    console.log(this.loadedCustomer.emotion);
-  }
+  // isrelaxed() {
+  //   this.loadedCustomer.emotion = 'relaxed';
+  //   console.log(this.loadedCustomer.emotion);
+  // }
 
-  isstressed() {
-    this.loadedCustomer.emotion = 'stressed';
-    console.log(this.loadedCustomer.emotion);
-  }
+  // issad() {
+  //   this.loadedCustomer.emotion = 'sad';
+  //   console.log(this.loadedCustomer.emotion);
+  // }
+
+  // isstressed() {
+  //   this.loadedCustomer.emotion = 'stressed';
+  //   console.log(this.loadedCustomer.emotion);
+  // }
 
 }

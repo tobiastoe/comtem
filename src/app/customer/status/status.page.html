@@ -21,10 +21,10 @@
           <ion-card-content>
             <ion-list>
             <!-- <ion-buttons> -->
-              <ion-button color="success" size="large" expand="block" (click)="ishappy()">Happy</ion-button>
-              <ion-button color="warning" size="large" expand="block" (click)="isrelaxed()">Relaxed</ion-button>
-              <ion-button color="medium" size="large" expand="block" (click)="issad()">Sad</ion-button>
-              <ion-button color="danger" size="large" expand="block" (click)="isstressed()">Stressed</ion-button>
+              <ion-button color="success" size="large" expand="block" (click)="emotionChanged('happy')">Happy</ion-button>
+              <ion-button color="warning" size="large" expand="block" (click)="emotionChanged('relaxed')">Relaxed</ion-button>
+              <ion-button color="medium" size="large" expand="block" (click)="emotionChanged('sad')">Sad</ion-button>
+              <ion-button color="danger" size="large" expand="block" (click)="emotionChanged('stressed')">Stressed</ion-button>
             <!-- </ion-buttons> -->
             </ion-list>
           </ion-card-content>

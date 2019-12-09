@@ -27,7 +27,7 @@ export class AuthPage implements OnInit {
   ngOnInit() {
   }
 
-  authenticate(email: string, password: string) {
+  authenticate(email: string, password: string, name: string, address: string, imageUrl: string, birthday: Date) {
     let loadingMessage;
     if (this.isLogin) {
       loadingMessage = 'Logging in...';
@@ -49,6 +49,7 @@ export class AuthPage implements OnInit {
           console.log(resData);
           this.isLoading = false;
           loadingEl.dismiss();
+          this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe();
           this.router.navigateByUrl('/customer/tabs/status');
         }, errRes => {
           loadingEl.dismiss();
@@ -77,11 +78,11 @@ export class AuthPage implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     const name = form.value.name;
+    const address = form.value.address;
     const imageUrl = form.value.imageUrl;
     const birthday = form.value.birthday;
 
-    this.authenticate(email, password);
-    this.customerService.addCustomer(email, password, name, imageUrl, birthday).subscribe();
+    this.authenticate(email, password, name, address, imageUrl, birthday);
     form.reset();
   }
 

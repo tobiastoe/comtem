@@ -1,10 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Customer } from './customer.model';
-import { tap, switchMap, take, map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
-import { stringify } from 'querystring';
 import { CustomerHistory } from './customer-history.model';
 
 export interface CustomerResData {

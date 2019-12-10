@@ -25,6 +25,7 @@ export class AuthGuard implements CanLoad {
         if (!isAuthenticated) {
           this.router.navigateByUrl('/auth');
         }
-    }));
+      })
+    );
   }
 }

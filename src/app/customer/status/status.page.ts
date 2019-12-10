@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '../customer.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+
 import { CustomerService } from '../customer.service';
 import { AuthService } from '../../auth/auth.service';
-import { AlertController } from '@ionic/angular';
+import { Customer } from '../customer.model';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.page.html',
   styleUrls: ['./status.page.scss'],
 })
-export class StatusPage implements OnInit {
+export class StatusPage implements OnInit, OnDestroy {
   loadedCustomer: Customer;
   isLoading;
+  private customerSub: Subscription;
 
   constructor(
     private customerService: CustomerService,
@@ -19,15 +22,16 @@ export class StatusPage implements OnInit {
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    const email = this.authService.userEmail;
     this.isLoading = true;
-    this.customerService.fetchingCustomer(email).subscribe(customer => {
-      this.loadedCustomer = customer;
-      this.isLoading = false;
-    });
   }
 
   ionViewWillEnter() {
+    const email = this.authService.userEmail;
+    this.isLoading = true;
+    this.customerSub = this.customerService.fetchingCustomer(email).subscribe(customer => {
+      this.loadedCustomer = customer;
+      this.isLoading = false;
+    });
   }
 
   emotionChanged(newEmotion) {
@@ -70,6 +74,12 @@ export class StatusPage implements OnInit {
     setTimeout(alertEl => {
       this.alertCtrl.dismiss();
       }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.customerSub) {
+      this.customerSub.unsubscribe();
+    }
   }
 
 }

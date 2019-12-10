@@ -22,16 +22,15 @@ export class StatusPage implements OnInit, OnDestroy {
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    this.isLoading = true;
-  }
-
-  ionViewWillEnter() {
     const email = this.authService.userEmail;
     this.isLoading = true;
     this.customerSub = this.customerService.fetchingCustomer(email).subscribe(customer => {
       this.loadedCustomer = customer;
       this.isLoading = false;
     });
+  }
+
+  ionViewWillEnter() {
   }
 
   emotionChanged(newEmotion) {

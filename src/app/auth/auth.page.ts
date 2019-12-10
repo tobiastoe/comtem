@@ -46,7 +46,6 @@ export class AuthPage implements OnInit {
           authObs = this.authService.signup(email, password);
         }
         authObs.subscribe(resData => {
-          console.log(resData);
           this.isLoading = false;
           loadingEl.dismiss();
           if (!this.isLogin) {

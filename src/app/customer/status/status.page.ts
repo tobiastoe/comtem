@@ -14,6 +14,7 @@ export class StatusPage implements OnInit {
 
   ngOnInit() {
     this.loadedCustomer = this.customerService.customer;
+    console.log(this.loadedCustomer);
   }
 
   ionViewWillEnter() {

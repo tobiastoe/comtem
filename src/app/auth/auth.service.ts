@@ -46,13 +46,7 @@ export class AuthService implements OnDestroy {
   }
 
   get userEmail() {
-    return this._user.asObservable().pipe(map(user => {
-      if (user) {
-        return user.email;
-      } else {
-        return null;
-      }
-    }));
+    return this._user.value.email;
   }
 
   get token() {
@@ -70,7 +64,7 @@ export class AuthService implements OnDestroy {
   autoLogin() {
     return from (Plugins.Storage.get({key: 'authData'})).pipe(map(
       storedData => {
-        if (!storedData || !storedData. value) {
+        if (!storedData || !storedData.value) {
           return null;
         }
         const parsedData = JSON.parse(storedData.value) as {token: string; tokenExpirationDate: string; userId: string, email: string};

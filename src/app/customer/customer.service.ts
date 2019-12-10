@@ -5,6 +5,7 @@ import { Customer } from './customer.model';
 import { tap, switchMap, take, map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { stringify } from 'querystring';
+import { CustomerHistory } from './customer-history.model';
 
 export interface CustomerResData {
   address: string;
@@ -22,18 +23,6 @@ export interface CustomerResData {
 })
 export class CustomerService {
   private _customer: Customer;
-  // = {
-  //   id: 'c1',
-  //   name: 'Tobias',
-  //   email: 'test@test.com',
-  //   address: 'Wilhelm-Bode-Strasse',
-  //   imageUrl: 'https://www.vorname.com/cache/inline-images/tobias-images-name-moods-namensbild-t-m-jpg.m.40.600.png',
-  //   birthday: null,
-  //   emotion: 'Happy',
-  //   lastEmotion: null,
-  //   emotionHistory: [],
-  //   currentShop: 'Kabinett24'
-  // };
 
   addCustomer(name: string, email: string, address: string, imageUrl: string, birthday: Date) {
     const newCustomer = new Customer(
@@ -57,9 +46,9 @@ export class CustomerService {
       );
   }
 
-  fetchingCustomer() {
+  fetchingCustomer(email: string) {
     return this.http
-      .get<{ [key: string]: CustomerResData}>(`https://comtem-9282e.firebaseio.com/customers.json?orderBy="email"&equalTo="test2@test.com"`)
+      .get<{ [key: string]: CustomerResData}>(`https://comtem-9282e.firebaseio.com/customers.json?orderBy="email"&equalTo="${email}"`)
       .pipe(map(resData => {
         let currentCustomer = null;
         for (const key in resData) {
@@ -81,10 +70,15 @@ export class CustomerService {
         }),
         tap(currentCustomer => {
           this._customer = currentCustomer;
-          console.log(this._customer);
         })
       );
     }
+
+  updateCustomerEmotion(customer: Customer) {
+    return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json`,
+    { ...customer, id: null}
+    );
+  }
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 

@@ -10,15 +10,20 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class StatusPage implements OnInit {
   loadedCustomer: Customer;
+  isLoading;
+
   constructor(private customerService: CustomerService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadedCustomer = this.customerService.customer;
-    console.log(this.loadedCustomer);
+    const email = this.authService.userEmail;
+    this.isLoading = true;
+    this.customerService.fetchingCustomer(email).subscribe(customer => {
+      this.loadedCustomer = customer;
+      this.isLoading = false;
+    });
   }
 
   ionViewWillEnter() {
-    this.customerService.fetchingCustomer().subscribe();
   }
 
   emotionChanged(newEmotion) {
@@ -28,6 +33,7 @@ export class StatusPage implements OnInit {
       emotion: this.loadedCustomer.emotion,
       time: new Date(),
       shop: this.loadedCustomer.currentShop});
+    this.customerService.updateCustomerEmotion(this.loadedCustomer).subscribe();
   }
 
 }

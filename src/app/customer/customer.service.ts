@@ -13,6 +13,7 @@ export interface CustomerResData {
   currentShop: string;
   email: string;
   emotion: string;
+  emotionHistory: CustomerHistory[];
   imageUrl: string;
   lastEmotion: string;
   name: string;
@@ -62,7 +63,7 @@ export class CustomerService {
               new Date(resData[key].birthday),
               resData[key].emotion,
               resData[key].lastEmotion,
-              [],
+              resData[key].emotionHistory,
               resData[key].currentShop);
           }
         }

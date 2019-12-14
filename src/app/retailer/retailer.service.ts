@@ -60,4 +60,8 @@ export class RetailerService {
         })
       );
     }
+
+  fetchingCustomersInShop(currentShop: string) {
+
+  }
 }

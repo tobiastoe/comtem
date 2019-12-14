@@ -1,11 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>What's happening in your shop?</ion-title>
+    <ion-title *ngIf="!isLoading">{{loadedRetailer.name}}, what's happening in your shop?</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="card-background-page">
-  <ion-grid>
+  <div *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-grid *ngIf="!isLoading">
     <ion-row>
       <ion-col>
         <ion-card height="300px">

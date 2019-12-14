@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
 import { CustomerService } from '../customer/customer.service';
+import { RetailerService } from '../retailer/retailer.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,13 +16,15 @@ import { CustomerService } from '../customer/customer.service';
 export class AuthPage implements OnInit {
   isLogin = true;
   isLoading = false;
+  isRetailer = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private retailerService: RetailerService
     ) { }
 
   ngOnInit() {
@@ -49,9 +52,17 @@ export class AuthPage implements OnInit {
           this.isLoading = false;
           loadingEl.dismiss();
           if (!this.isLogin) {
-            this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe();
+            if (!this.isRetailer) {
+              this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe();
+            } else if (this.isRetailer) {
+              this.retailerService.addRetailer(name, email, address, imageUrl).subscribe();
+            }
           }
-          this.router.navigateByUrl('/customer/tabs/status');
+          if (!this.isRetailer) {
+            this.router.navigateByUrl('/customer/tabs/status');
+          } else if (this.isRetailer) {
+            this.router.navigateByUrl('/retailer');
+          }
         }, errRes => {
           loadingEl.dismiss();
           const code = errRes.error.error.message;
@@ -70,6 +81,11 @@ export class AuthPage implements OnInit {
 
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
+    this.isRetailer = false;
+  }
+
+  onSwitchRetailerMode() {
+    this.isRetailer = !this.isRetailer;
   }
 
   onSubmit(form: NgForm) {

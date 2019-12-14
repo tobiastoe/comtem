@@ -62,6 +62,25 @@ export class RetailerService {
     }
 
   fetchingCustomersInShop(currentShop: string) {
-
+    return this.http
+    .get<{ [key: string]: RetailerResData}>(`https://comtem-9282e.firebaseio.com/customer.json?orderBy="email"&equalTo="${this._retailer.name}"`)
+    .pipe(map(resData => {
+      let currentRetailer = null;
+      for (const key in resData) {
+        if (resData.hasOwnProperty(key)) {
+          currentRetailer = new Retailer (
+            key,
+            resData[key].name,
+            resData[key].email,
+            resData[key].address,
+            resData[key].imageUrl);
+        }
+      }
+      return currentRetailer;
+      }),
+      tap(currentRetailer => {
+        this._retailer = currentRetailer;
+      })
+    );
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../customer.service';
+import { CustomerService, CustomerResData } from '../customer.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { Customer } from '../customer.model';
@@ -12,6 +12,7 @@ import { Customer } from '../customer.model';
 export class HistoryPage implements OnInit {
   loadedCustomer: Customer;
   isLoading;
+  isDeleting;
 
   constructor(private customerService: CustomerService, private authService: AuthService) { }
 
@@ -25,6 +26,14 @@ export class HistoryPage implements OnInit {
     this.customerService.fetchingCustomer(email).subscribe(customer => {
       this.loadedCustomer = customer;
       this.isLoading = false;
+    });
+  }
+
+  deleteHistory(customer: Customer) {
+    this.isDeleting = true;
+    this.customerService.deleteEmotionHistory(customer).subscribe(() => {
+      this.loadedCustomer.emotionHistory = null;
+      this.isDeleting = false;
     });
   }
 

@@ -80,6 +80,11 @@ export class CustomerService {
     );
   }
 
+  deleteEmotionHistory(customer: Customer) {
+    return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/emotionHistory.json?`);
+    this._customer.emotionHistory = null;
+  }
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   get customer() {

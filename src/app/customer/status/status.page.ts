@@ -31,6 +31,7 @@ export class StatusPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
+    this.loadedCustomer = this.customerService.customer;
   }
 
   emotionChanged(newEmotion) {

@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-  <div *ngIf="isLoading">
+  <div *ngIf="isLoading" text-center>
     <ion-spinner color="primary"></ion-spinner>
   </div>
   <ion-grid *ngIf="!isLoading">
@@ -35,7 +35,9 @@
           <div class="card-subtitle" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Happy'">
               <ion-item>              
-                <p>{{customer.name}}</p>
+                <ion-avatar slot="start">
+                  <ion-img [src]="customer.imageUrl"></ion-img>
+                </ion-avatar>
               </ion-item>
             </ion-list>
           </div>

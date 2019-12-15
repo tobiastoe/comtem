@@ -19,9 +19,13 @@
     </ion-card>
   </div>
   <div *ngIf="!isLoading">
-    <ion-card *ngFor="let retailer of loadedRetailers">
-      <ion-card-title>{{retailer.name}}</ion-card-title>
-      <ion-img [src]="retailer.imageUrl"></ion-img>
-    </ion-card>
+    <ion-list *ngFor="let retailer of loadedRetailers">
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img [src]="retailer.imageUrl"></ion-img>
+        </ion-avatar>
+        <ion-label>{{retailer.name}}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
 import { Retailer } from 'src/app/retailer/retailer.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-shop',
@@ -14,17 +15,24 @@ export class ShopPage implements OnInit {
   isLoading = false;
   loadedRetailers: Retailer[];
 
-  constructor(private customerSerice: CustomerService) { }
+  constructor(
+    private customerService: CustomerService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.loadedCustomer = this.customerSerice.customer;
+    const email = this.authService.userEmail;
+    this.loadedCustomer = this.customerService.customer;
     this.isLoading = true;
-    this.customerSerice.fetchAllRetailers().subscribe(resData => {
+    this.customerService.fetchAllRetailers().subscribe(resData => {
       this.loadedRetailers = resData;
-      this.isLoading = false;
+      this.customerService.fetchingCustomer(email).subscribe(customer => {
+        this.loadedCustomer = customer;
+        this.isLoading = false;
+      });
     });
   }
 }

@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { RetailerService } from './retailer.service';
 import { Retailer } from './retailer.model';
+import { Customer } from '../customer/customer.model';
 
 @Component({
   selector: 'app-retailer',
@@ -13,6 +14,7 @@ export class RetailerPage implements OnInit, OnDestroy {
   loadedRetailer: Retailer;
   isLoading = false;
   private retailerSub: Subscription;
+  customersinShop: Customer[];
 
   constructor(
     private authService: AuthService,
@@ -24,7 +26,12 @@ export class RetailerPage implements OnInit, OnDestroy {
     this.isLoading = true;
     this.retailerSub = this.retailerService.fetchingRetailer(email).subscribe(retailer => {
       this.loadedRetailer = retailer;
-      this.isLoading = false;
+      this.retailerService.fetchingCustomersInShop(this.loadedRetailer.name).subscribe(customers => {
+        this.customersinShop = customers;
+        console.log(this.customersinShop);
+        this.isLoading = false;
+        }
+      );
     });
   }
 

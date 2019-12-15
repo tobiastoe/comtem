@@ -33,7 +33,8 @@
         <ion-label>{{retailer.name}}</ion-label>
         <ion-buttons>
         <ion-button fill="clear" (click)="shopChanged(retailer)" slot="icon-only">
-          <ion-icon name="log-in"></ion-icon>
+          <ion-icon name="log-in" *ngIf="retailer.name !== loadedCustomer.currentShop"></ion-icon>
+          <ion-icon name="log-out" *ngIf="retailer.name === loadedCustomer.currentShop"></ion-icon>
         </ion-button>
         </ion-buttons>
       </ion-item>

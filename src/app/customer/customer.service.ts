@@ -89,6 +89,11 @@ export class CustomerService {
     this._customer.emotionHistory = null;
   }
 
+  deleteCurrentShop(customer: Customer) {
+    return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/currentShop.json?`);
+    this._customer.currentShop = null;
+  }
+
   fetchAllRetailers() {
     return this.http
     .get<{ [key: string]: RetailerResData}>

@@ -49,7 +49,7 @@ export class StatusPage implements OnInit, OnDestroy {
       time: new Date(),
       shop: this.loadedCustomer.currentShop});
     }
-    this.customerService.updateCustomerEmotion(this.loadedCustomer).subscribe();
+    this.customerService.updateCustomer(this.loadedCustomer).subscribe();
     this.showAlert(this.loadedCustomer.emotion);
   }
 

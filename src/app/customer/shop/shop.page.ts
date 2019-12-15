@@ -14,6 +14,7 @@ export class ShopPage implements OnInit {
   isShopping = false;
   isLoading = false;
   loadedRetailers: Retailer[];
+  currentRetailer: Retailer;
 
   constructor(
     private customerService: CustomerService,
@@ -32,7 +33,25 @@ export class ShopPage implements OnInit {
       this.customerService.fetchingCustomer(email).subscribe(customer => {
         this.loadedCustomer = customer;
         this.isLoading = false;
+        if (this.loadedCustomer.currentShop) {
+          this.isShopping = true;
+          this.loadCurrentRetailer(this.loadedCustomer, this.loadedRetailers);
+        }
       });
     });
+  }
+
+  loadCurrentRetailer(customer: Customer, retailerList: Retailer[]) {
+    for (const retailer of retailerList) {
+      if (retailer.name === customer.currentShop) {
+        this.currentRetailer = retailer;
+      }
+    }
+  }
+
+  shopChanged(newRetailer: Retailer) {
+    this.loadedCustomer.currentShop = newRetailer.name;
+    this.loadCurrentRetailer(this.loadedCustomer, this.loadedRetailers);
+    this.customerService.updateCustomer(this.loadedCustomer).subscribe();
   }
 }

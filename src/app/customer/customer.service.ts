@@ -78,7 +78,7 @@ export class CustomerService {
       );
     }
 
-  updateCustomerEmotion(customer: Customer) {
+  updateCustomer(customer: Customer) {
     return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json`,
     { ...customer, id: null}
     );

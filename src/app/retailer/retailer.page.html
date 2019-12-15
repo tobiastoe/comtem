@@ -18,12 +18,26 @@
           <div class="card-title">
             Stressed
           </div>
+          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+            <ion-list *ngIf="customer.emotion==='Stressed'">
+              <ion-item>              
+                <p>{{customer.name}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-card>
       </ion-col>
       <ion-col>
         <ion-card color="success">
           <div class="card-title">
             Happy
+          </div>
+          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+            <ion-list *ngIf="customer.emotion==='Happy'">
+              <ion-item>              
+                <p>{{customer.name}}</p>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card>      
       </ion-col>
@@ -34,12 +48,26 @@
           <div class="card-title">
             Sad
           </div>
+          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+            <ion-list *ngIf="customer.emotion==='Sad'">
+              <ion-item>              
+                <p>{{customer.name}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-card> 
       </ion-col>
       <ion-col>
         <ion-card color="medium">
           <div class="card-title">
             Relaxed
+          </div>
+          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+            <ion-list *ngIf="customer.emotion==='Relaxed'">
+              <ion-item>              
+                <p>{{customer.name}}</p>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card>       
       </ion-col>

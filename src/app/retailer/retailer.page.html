@@ -18,10 +18,13 @@
           <div class="card-title">
             Stressed
           </div>
-          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+          <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Stressed'">
-              <ion-item>              
-                <p>{{customer.name}}</p>
+              <ion-item lines="none" color="danger">              
+                <ion-avatar slot="start">
+                  <ion-img [src]="customer.imageUrl"></ion-img>
+                </ion-avatar>                
+                <ion-label>{{ customer.name }}</ion-label>
               </ion-item>
             </ion-list>
           </div>
@@ -32,12 +35,13 @@
           <div class="card-title">
             Happy
           </div>
-          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+          <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Happy'">
-              <ion-item>              
+              <ion-item lines="none" color="success">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
-                </ion-avatar>
+                </ion-avatar>                
+                <ion-label>{{ customer.name }}</ion-label>
               </ion-item>
             </ion-list>
           </div>
@@ -50,10 +54,13 @@
           <div class="card-title">
             Sad
           </div>
-          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+          <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Sad'">
-              <ion-item>              
-                <p>{{customer.name}}</p>
+              <ion-item lines="none" color="warning">              
+                <ion-avatar slot="start">
+                  <ion-img [src]="customer.imageUrl"></ion-img>
+                </ion-avatar>                
+                <ion-label>{{ customer.name }}</ion-label>
               </ion-item>
             </ion-list>
           </div>
@@ -64,10 +71,13 @@
           <div class="card-title">
             Relaxed
           </div>
-          <div class="card-subtitle" *ngFor="let customer of customersinShop">
+          <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Relaxed'">
-              <ion-item>              
-                <p>{{customer.name}}</p>
+              <ion-item lines="none" color="medium">              
+                <ion-avatar slot="start">
+                  <ion-img [src]="customer.imageUrl"></ion-img>
+                </ion-avatar>                
+                <ion-label>{{ customer.name }}</ion-label>
               </ion-item>
             </ion-list>
           </div>

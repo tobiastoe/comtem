@@ -5,6 +5,9 @@ import { Customer } from './customer.model';
 import { tap, map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { CustomerHistory } from './customer-history.model';
+import { RetailerResData } from '../retailer/retailer.service';
+import { Retailer } from '../retailer/retailer.model';
+import { BehaviorSubject } from 'rxjs';
 
 export interface CustomerResData {
   address: string;
@@ -23,6 +26,7 @@ export interface CustomerResData {
 })
 export class CustomerService {
   private _customer: Customer;
+  private _retailers = new BehaviorSubject<Retailer[]>([]);
 
   addCustomer(name: string, email: string, address: string, imageUrl: string, birthday: Date) {
     const newCustomer = new Customer(
@@ -85,9 +89,38 @@ export class CustomerService {
     this._customer.emotionHistory = null;
   }
 
+  fetchAllRetailers() {
+    return this.http
+    .get<{ [key: string]: RetailerResData}>
+      (`https://comtem-9282e.firebaseio.com/retailer.json?"`)
+    .pipe(map(resData => {
+      const retailers = [];
+      for (const key in resData) {
+        if (resData.hasOwnProperty(key)) {
+          retailers.push(new Retailer(
+            key,
+            resData[key].name,
+            resData[key].email,
+            resData[key].address,
+            resData[key].imageUrl,
+          ));
+        }
+      }
+      return retailers;
+      }),
+      tap(retailer => {
+        this._retailers.next(retailer);
+      })
+  );
+  }
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   get customer() {
     return this._customer;
+  }
+
+  get retailers() {
+    return this._retailers;
   }
 }

@@ -3,10 +3,25 @@
     <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
     </ion-buttons> 
-    <ion-title>{{this.loadedCustomer.currentShop}}</ion-title>
+    <ion-title *ngIf="isShopping && isLoading">{{this.loadedCustomer.currentShop}}</ion-title>
+    <ion-title *ngIf="!isShopping && isLoading">Start Shopping</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div text-center *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-searchbar showCancelButton="never" translucent></ion-searchbar>  
+  <div *ngIf="!isShopping && !isLoading">
+    <ion-card>
+      <ion-card-header color="danger">Please select the shop you're in!</ion-card-header>
+    </ion-card>
+  </div>
+  <div *ngIf="!isLoading">
+    <ion-card *ngFor="let retailer of loadedRetailers">
+      <ion-card-title>{{retailer.name}}</ion-card-title>
+      <ion-img [src]="retailer.imageUrl"></ion-img>
+    </ion-card>
+  </div>
 </ion-content>

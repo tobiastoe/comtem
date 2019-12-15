@@ -28,7 +28,6 @@ export class RetailerPage implements OnInit, OnDestroy {
       this.loadedRetailer = retailer;
       this.retailerService.fetchingCustomersInShop(this.loadedRetailer.name).subscribe(customers => {
         this.customersinShop = customers;
-        console.log(this.customersinShop);
         this.isLoading = false;
         }
       );

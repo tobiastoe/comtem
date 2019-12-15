@@ -52,15 +52,20 @@ export class ShopPage implements OnInit {
   }
 
   shopChanged(newRetailer: Retailer) {
+    this.isLoading = true;
     if (this.loadedCustomer.currentShop === newRetailer.name) {
-      this.customerService.deleteCurrentShop(this.loadedCustomer).subscribe();
+      this.customerService.deleteCurrentShop(this.loadedCustomer).subscribe(() => {
+        this.isLoading = false;
+      });
       this.isShopping = false;
       this.currentRetailer = null;
       this.loadedCustomer.currentShop = null;
     } else {
       this.loadedCustomer.currentShop = newRetailer.name;
       this.loadCurrentRetailer(this.loadedCustomer, this.loadedRetailers);
-      this.customerService.updateCustomer(this.loadedCustomer).subscribe();
+      this.customerService.updateCustomer(this.loadedCustomer).subscribe(() => {
+        this.isLoading = false;
+      });
       this.isShopping = true;
     }
   }

@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '../customer.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { CustomerService } from '../customer.service';
-import { Retailer } from 'src/app/retailer/retailer.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Customer } from '../customer.model';
+import { Retailer } from 'src/app/retailer/retailer.model';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],
 })
-export class ShopPage implements OnInit {
+export class ShopPage implements OnInit, OnDestroy {
   loadedCustomer: Customer;
   isShopping = false;
   isLoading = false;
   loadedRetailers: Retailer[];
   currentRetailer: Retailer;
+  private customerSub: Subscription;
 
   constructor(
     private customerService: CustomerService,
@@ -28,7 +31,7 @@ export class ShopPage implements OnInit {
     const email = this.authService.userEmail;
     this.loadedCustomer = this.customerService.customer;
     this.isLoading = true;
-    this.customerService.fetchAllRetailers().subscribe(resData => {
+    this.customerSub = this.customerService.fetchAllRetailers().subscribe(resData => {
       this.loadedRetailers = resData;
       this.customerService.fetchingCustomer(email).subscribe(customer => {
         this.loadedCustomer = customer;
@@ -67,6 +70,12 @@ export class ShopPage implements OnInit {
         this.isLoading = false;
       });
       this.isShopping = true;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.customerSub) {
+      this.customerSub.unsubscribe();
     }
   }
 }

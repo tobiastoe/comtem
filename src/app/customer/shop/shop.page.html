@@ -22,18 +22,23 @@
     <ion-card>
       <ion-card-title margin="5px" text-center>You're shopping in {{ this.loadedCustomer.currentShop}}</ion-card-title>
       <ion-img [src]="this.currentRetailer.imageUrl" style="height: 150px;" margin-bottom="5px"></ion-img>
+      <ion-card-content text-center>
+        {{this.currentRetailer.address}}
+        <!-- <br>
+        {{this.currentRetailer.description}} -->
+      </ion-card-content>
       <ion-button fill="clear" color="danger" expand="block" (click)="shopChanged(currentRetailer)">Leave Shop</ion-button>
     </ion-card>
   </div>
   <div *ngIf="!isLoading">
     <ion-list *ngFor="let retailer of loadedRetailers">
-      <ion-item>
+      <ion-item button type="button" (click)="shopChanged(retailer)">
         <ion-avatar slot="start">
           <ion-img [src]="retailer.imageUrl"></ion-img>
         </ion-avatar>
         <ion-label>{{retailer.name}}</ion-label>
         <ion-buttons>
-        <ion-button fill="clear" (click)="shopChanged(retailer)" slot="icon-only">
+        <ion-button fill="clear" slot="icon-only">
           <ion-icon name="log-in" *ngIf="retailer.name !== loadedCustomer.currentShop"></ion-icon>
           <ion-icon name="log-out" *ngIf="retailer.name === loadedCustomer.currentShop"></ion-icon>
         </ion-button>

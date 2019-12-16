@@ -22,7 +22,7 @@
     <ion-card>
       <ion-card-title margin="5px" text-center>You're shopping in {{ this.loadedCustomer.currentShop}}</ion-card-title>
       <ion-img [src]="this.currentRetailer.imageUrl" style="height: 150px;" margin-bottom="5px"></ion-img>
-      <ion-button color="danger" expand="block" (click)="shopChanged(currentRetailer)">Leave Shop</ion-button>
+      <ion-button fill="clear" color="danger" expand="block" (click)="shopChanged(currentRetailer)">Leave Shop</ion-button>
     </ion-card>
   </div>
   <div *ngIf="!isLoading">

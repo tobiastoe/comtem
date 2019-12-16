@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
-import { CustomerService, CustomerResData } from '../customer.service';
+import { CustomerService } from '../customer.service';
 import { Customer } from '../customer.model';
 
 @Component({

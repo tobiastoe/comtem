@@ -77,7 +77,10 @@ export class StatusPage implements OnInit, OnDestroy {
         break;
       }
     }
-    this.alertCtrl.create({message: `<ion-icon name="${iconName}"></ion-icon>`}).then(alertEl =>
+    this.alertCtrl.create({message: 
+      // `<ion-icon name="${iconName}"></ion-icon>`
+      `Your emotion changed to ${emotion}!`
+    }).then(alertEl =>
       alertEl.present());
     setTimeout(alertEl => {
       this.alertCtrl.dismiss();

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Customer } from './customer.model';
-import { tap, map, switchMap } from 'rxjs/operators';
+import { tap, map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { CustomerHistory } from './customer-history.model';
 import { RetailerResData } from '../retailer/retailer.service';
@@ -41,7 +41,7 @@ export class CustomerService {
       [],
       '',
     );
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
       .post<{name: string}>(`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}`, {...newCustomer, id: null})
     }), tap(resData => {
@@ -51,7 +51,7 @@ export class CustomerService {
   }
 
   fetchingCustomer(email: string) {
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
       .get<{ [key: string]: CustomerResData}>
       (`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}&orderBy="email"&equalTo="${email}"`);
@@ -82,7 +82,7 @@ export class CustomerService {
 
   updateCustomer(customer: Customer) {
     this._customer = customer;
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json?auth=${token}`,
         { ...customer, id: null}
       );
@@ -91,20 +91,20 @@ export class CustomerService {
 
   deleteEmotionHistory(customer: Customer) {
     this._customer.emotionHistory = null;
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/emotionHistory.json?auth=${token}`);
     }));
   }
 
   deleteCurrentShop(customer: Customer) {
     this._customer.currentShop = null;
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/currentShop.json?auth=${token}`);
     }));
   }
 
   fetchAllRetailers() {
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
       .get<{ [key: string]: RetailerResData}>
         (`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}"`);

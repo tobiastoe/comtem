@@ -6,9 +6,9 @@
     <ion-avatar slot="start">
       <ion-img [src]="customer.imageUrl" height="200px"></ion-img>
     </ion-avatar>
-    <ion-buttons slot="end">
-      <ion-button (click)="onCancel()">
-        <ion-icon name="close"></ion-icon>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()" fill="clear" slot="icon-only">
+        <ion-icon  name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

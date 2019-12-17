@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
-import { tap, map, switchMap } from 'rxjs/operators';
+import { tap, map, switchMap, take } from 'rxjs/operators';
 
 import { Retailer } from './retailer.model';
 import { CustomerResData } from '../customer/customer.service';
@@ -31,7 +31,7 @@ export class RetailerService {
       address,
       imageUrl,
     );
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
         .post<{name: string}>(`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}`, {...newRetailer, id: null});
     }),
@@ -47,7 +47,7 @@ export class RetailerService {
   ) { }
 
   fetchingRetailer(email: string) {
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
         .get<{ [key: string]: RetailerResData}>
         (`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}&orderBy="email"&equalTo="${email}"`);
@@ -73,7 +73,7 @@ export class RetailerService {
     }
 
   fetchingCustomersInShop(currentShop: string) {
-    return this.authService.token.pipe(switchMap(token => {
+    return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
         .get<{ [key: string]: CustomerResData}>
           (`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}&orderBy="currentShop"&equalTo="${this._retailer.name}"`);

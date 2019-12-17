@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ customer.name }}  
+    </ion-title>
+    <ion-avatar slot="start">
+      <ion-img [src]="customer.imageUrl" height="200px"></ion-img>
+    </ion-avatar>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let emotion of customer.emotionHistory">
+      <ion-button 
+        [color]="setColor(emotion.emotion)"   
+        margin="2px" 
+        *ngIf="emotion.shop === retailer.name"
+        expand="block"
+        >            
+          {{ emotion.emotion }}, {{ emotion.time }}
+      </ion-button>
+    </div>
+  </ion-list>
+  <ion-button color="danger" fill="clear" (click)="onCancel()" expand="block">Close</ion-button>
+</ion-content>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Customer } from './customer.model';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { CustomerHistory } from './customer-history.model';
 import { RetailerResData } from '../retailer/retailer.service';
@@ -41,19 +41,21 @@ export class CustomerService {
       [],
       '',
     );
-    return this.http
-      .post<{name: string}>('https://comtem-9282e.firebaseio.com/customers.json', {...newCustomer, id: null})
-      .pipe(
-        tap(resData => {
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+      .post<{name: string}>(`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}`, {...newCustomer, id: null})
+    }), tap(resData => {
           this.customer.id = resData.name;
         })
       );
   }
 
   fetchingCustomer(email: string) {
-    return this.http
-      .get<{ [key: string]: CustomerResData}>(`https://comtem-9282e.firebaseio.com/customers.json?orderBy="email"&equalTo="${email}"`)
-      .pipe(map(resData => {
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+      .get<{ [key: string]: CustomerResData}>
+      (`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}&orderBy="email"&equalTo="${email}"`);
+    }), map(resData => {
         let currentCustomer = null;
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
@@ -79,40 +81,48 @@ export class CustomerService {
     }
 
   updateCustomer(customer: Customer) {
-    return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json`,
-    { ...customer, id: null}
-    );
     this._customer = customer;
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json?auth=${token}`,
+        { ...customer, id: null}
+      );
+    }));
   }
 
   deleteEmotionHistory(customer: Customer) {
-    return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/emotionHistory.json?`);
     this._customer.emotionHistory = null;
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/emotionHistory.json?auth=${token}`);
+    }));
   }
 
   deleteCurrentShop(customer: Customer) {
-    return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/currentShop.json?`);
     this._customer.currentShop = null;
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http.delete(`https://comtem-9282e.firebaseio.com/customers/${customer.id}/currentShop.json?auth=${token}`);
+    }));
   }
 
   fetchAllRetailers() {
-    return this.http
-    .get<{ [key: string]: RetailerResData}>
-      (`https://comtem-9282e.firebaseio.com/retailer.json?"`)
-    .pipe(map(resData => {
-      const retailers = [];
-      for (const key in resData) {
-        if (resData.hasOwnProperty(key)) {
-          retailers.push(new Retailer(
-            key,
-            resData[key].name,
-            resData[key].email,
-            resData[key].address,
-            resData[key].imageUrl,
-          ));
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+      .get<{ [key: string]: RetailerResData}>
+        (`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}"`);
+      }),
+      map(resData => {
+        const retailers = [];
+        for (const key in resData) {
+          if (resData.hasOwnProperty(key)) {
+            retailers.push(new Retailer(
+              key,
+              resData[key].name,
+              resData[key].email,
+              resData[key].address,
+              resData[key].imageUrl,
+            ));
+          }
         }
-      }
-      return retailers;
+        return retailers;
       }),
       tap(retailer => {
         this._retailers.next(retailer);

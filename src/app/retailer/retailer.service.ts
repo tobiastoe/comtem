@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, switchMap } from 'rxjs/operators';
 
 import { Retailer } from './retailer.model';
 import { CustomerResData } from '../customer/customer.service';
 import { Customer } from '../customer/customer.model';
+import { AuthService } from '../auth/auth.service';
 
 export interface RetailerResData {
   address: string;
@@ -30,23 +31,28 @@ export class RetailerService {
       address,
       imageUrl,
     );
-    return this.http
-      .post<{name: string}>('https://comtem-9282e.firebaseio.com/retailer.json', {...newRetailer, id: null})
-      .pipe(
-        tap(resData => {
-          this._retailer.id = resData.name;
-        })
-      );
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+        .post<{name: string}>(`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}`, {...newRetailer, id: null});
+    }),
+      tap(resData => {
+        this._retailer.id = resData.name;
+      })
+    );
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService,
   ) { }
 
   fetchingRetailer(email: string) {
-    return this.http
-      .get<{ [key: string]: RetailerResData}>(`https://comtem-9282e.firebaseio.com/retailer.json?orderBy="email"&equalTo="${email}"`)
-      .pipe(map(resData => {
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+        .get<{ [key: string]: RetailerResData}>
+        (`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}&orderBy="email"&equalTo="${email}"`);
+    }),
+      map(resData => {
         let currentRetailer = null;
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
@@ -67,10 +73,12 @@ export class RetailerService {
     }
 
   fetchingCustomersInShop(currentShop: string) {
-    return this.http
-      .get<{ [key: string]: CustomerResData}>
-        (`https://comtem-9282e.firebaseio.com/customers.json?orderBy="currentShop"&equalTo="${this._retailer.name}"`)
-      .pipe(map(resData => {
+    return this.authService.token.pipe(switchMap(token => {
+      return this.http
+        .get<{ [key: string]: CustomerResData}>
+          (`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}&orderBy="currentShop"&equalTo="${this._retailer.name}"`);
+    }),
+      map(resData => {
         const customersInShop = [];
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
@@ -93,6 +101,6 @@ export class RetailerService {
         tap(customersInShop => {
           this._customersInShop.next(customersInShop);
         })
-    );
-  }
+      );
+    }
 }

@@ -1,10 +1,3 @@
-import * as functions from 'firebase-functions';
+const fbAdmin = require('firebase-admin');
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
-
+fbAdmin.initializeApp({crendential: fbAdmin.crendential.cert(require('./adminSDK-key.json'))});

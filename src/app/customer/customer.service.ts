@@ -139,4 +139,8 @@ export class CustomerService {
   get retailers() {
     return this._retailers;
   }
+
+  destroyUserData() {
+    this._customer = null;
+  }
 }

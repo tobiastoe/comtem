@@ -22,6 +22,7 @@ export interface RetailerResData {
 export class RetailerService {
   private _retailer: Retailer;
   private _customersInShop= new BehaviorSubject<Customer[]>([]);
+  private _advice: string;
 
   addRetailer(name: string, email: string, address: string, imageUrl: string) {
     const newRetailer = new Retailer(
@@ -101,6 +102,18 @@ export class RetailerService {
         tap(customersInShop => {
           this._customersInShop.next(customersInShop);
         })
+      );
+    }
+
+    getAdvice(oldEmotion: string, newEmotion: string) {
+      return this.authService.token.pipe(take(1), switchMap(token => {
+       return this.http.get<string>(`https://comtem-9282e.firebaseio.com/advices/${oldEmotion}/${newEmotion}.json?auth=${token}"`);
+      }), map(resData => {
+        console.log(resData);
+        return resData;
+      }), tap(resData => {
+        this._advice = resData;
+      })
       );
     }
 }

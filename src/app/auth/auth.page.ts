@@ -58,11 +58,13 @@ export class AuthPage implements OnInit {
               this.retailerService.addRetailer(name, email, address, imageUrl).subscribe();
             }
           }
-          if (!this.isRetailer) {
-            this.router.navigateByUrl('/customer/tabs/status');
-          } else if (this.isRetailer) {
-            this.router.navigateByUrl('/retailer');
+          this.customerService.fetchingCustomer(email).subscribe(resDat => {
+            if (resDat) {
+              this.router.navigateByUrl('/customer/tabs/status');
+            } else {
+              this.router.navigateByUrl('/retailer');
           }
+        });
         }, errRes => {
           loadingEl.dismiss();
           const code = errRes.error.error.message;

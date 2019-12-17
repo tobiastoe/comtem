@@ -25,11 +25,15 @@
           <ion-card-content>
             <ion-list>
             <!-- <ion-buttons> -->
-              <ion-button class="button-emotion" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
-              <ion-button color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
-              <ion-button color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>
-              <ion-button color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
-            <!-- </ion-buttons> -->
+              <ion-button *ngIf="loadedCustomer.emotion !== 'Happy'" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion === 'Happy'" class="button-emotion" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion !== 'Relaxed'" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion === 'Relaxed'" class="button-emotion" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion !== 'Sad'" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion === 'Sad'" class="button-emotion" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion !== 'Stressed'" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
+              <ion-button *ngIf="loadedCustomer.emotion === 'Stressed'" class="button-emotion" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
+              <!-- </ion-buttons> -->
             </ion-list>
             <!-- Alternative 1 -->
             <!-- <ion-item>

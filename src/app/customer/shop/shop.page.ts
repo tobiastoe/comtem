@@ -66,6 +66,18 @@ export class ShopPage implements OnInit, OnDestroy {
     } else {
       this.loadedCustomer.currentShop = newRetailer.name;
       this.loadCurrentRetailer(this.loadedCustomer, this.loadedRetailers);
+      if (!this.loadedCustomer.emotionHistory) {
+        this.loadedCustomer.emotionHistory = [{
+          emotion: this.loadedCustomer.emotion,
+          time: new Date(),
+          shop: this.loadedCustomer.currentShop
+        }];
+      } else {
+      this.loadedCustomer.emotionHistory.push({
+        emotion: this.loadedCustomer.emotion,
+        time: new Date(),
+        shop: this.loadedCustomer.currentShop});
+      }
       this.customerService.updateCustomer(this.loadedCustomer).subscribe(() => {
         this.isLoading = false;
       });

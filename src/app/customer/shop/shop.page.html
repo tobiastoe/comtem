@@ -12,7 +12,7 @@
   <div text-center *ngIf="isLoading">
     <ion-spinner color="primary"></ion-spinner>
   </div>
-  <ion-searchbar showCancelButton="never" translucent *ngIf="!isLoading"></ion-searchbar>  
+  <!-- <ion-searchbar showCancelButton="never" translucent *ngIf="!isLoading"></ion-searchbar>   -->
   <div *ngIf="!isShopping && !isLoading">
     <ion-card>
       <ion-card-header color="danger">Please select the shop you're in!</ion-card-header>
@@ -32,13 +32,13 @@
   </div>
   <div *ngIf="!isLoading">
     <ion-list *ngFor="let retailer of loadedRetailers">
-      <ion-item button type="button" (click)="shopChanged(retailer)">
+      <ion-item button type="button" (click)="shopChanged(retailer)" [disabled]="retailer.name === loadedCustomer.currentShop">
         <ion-avatar slot="start">
           <ion-img [src]="retailer.imageUrl"></ion-img>
         </ion-avatar>
         <ion-label>{{retailer.name}}</ion-label>
         <ion-buttons>
-        <ion-button fill="clear" slot="icon-only">
+        <ion-button fill="clear" slot="icon-only" [disabled]="retailer.name === loadedCustomer.currentShop">
           <ion-icon name="log-in" *ngIf="retailer.name !== loadedCustomer.currentShop"></ion-icon>
           <ion-icon name="log-out" *ngIf="retailer.name === loadedCustomer.currentShop"></ion-icon>
         </ion-button>

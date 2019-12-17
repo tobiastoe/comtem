@@ -1,4 +1,5 @@
-ion-button {
-    border-color: red;
-    border-width: 1em;
+ion-button.button-emotion {
+    --border-color: black;
+    --border-width: 2px;
+    --border-style: solid;
   }

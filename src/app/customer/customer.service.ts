@@ -82,6 +82,7 @@ export class CustomerService {
     return this.http.put(`https://comtem-9282e.firebaseio.com/customers/${customer.id}.json`,
     { ...customer, id: null}
     );
+    this._customer = customer;
   }
 
   deleteEmotionHistory(customer: Customer) {

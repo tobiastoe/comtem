@@ -109,7 +109,6 @@ export class RetailerService {
       return this.authService.token.pipe(take(1), switchMap(token => {
        return this.http.get<string>(`https://comtem-9282e.firebaseio.com/advices/${oldEmotion}/${newEmotion}.json?auth=${token}"`);
       }), map(resData => {
-        console.log(resData);
         return resData;
       }), tap(resData => {
         this._advice = resData;

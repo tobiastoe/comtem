@@ -86,7 +86,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="11" offset="0.5">
-        <ion-button (click)="switchRefreshingMode()" expand="block" fill="outline" color="dark">{{!isRefreshing ? 'Keep Updating!' : 'Stop Updating!'}}</ion-button>
+        <ion-button (click)="switchRefreshingMode()" expand="block" fill="outline" [color]="isRefreshing ? 'danger' : 'dark'">{{!isRefreshing ? 'Keep Updating!' : 'Stop Updating!'}}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

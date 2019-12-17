@@ -18,7 +18,7 @@ export class RetailerPage implements OnInit, OnDestroy {
   private retailerSub: Subscription;
   customersinShop: Customer[];
   customersinShopPast: Customer[];
-  isRefreshing = false;
+  isRefreshing = true;
 
   constructor(
     private authService: AuthService,
@@ -52,16 +52,39 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   compareCustomerData(pastCustomerData: Customer[], currentCustomerData: Customer[]) {
-    let index = 0;
+    let match = false;
     for (const currentCustomer of currentCustomerData) {
-      const oldEmotion = pastCustomerData[index].emotion;
+      let j = pastCustomerData.length;
       const newEmotion = currentCustomer.emotion;
-      if (newEmotion !== oldEmotion) {
-       this.retailerService.getAdvice(oldEmotion.toLowerCase(), newEmotion.toLowerCase()).subscribe(resData => {
-        this.showAlert(resData, currentCustomer, oldEmotion, newEmotion);
-       });
+      for (const pastCustomer of pastCustomerData) {
+        if (currentCustomer.email === pastCustomer.email) {
+          match = true;
+          const oldEmotion = pastCustomer.emotion;
+          if (newEmotion !== oldEmotion) {
+            this.retailerService.getAdvice(oldEmotion.toLowerCase(), newEmotion.toLowerCase()).subscribe(resData => {
+            this.showAlertEmotionChange(resData, currentCustomer, oldEmotion, newEmotion);
+            });
+          }
+        }
+        j -= 1;
+        if (j === 0 && !match) {
+          this.showAlertEnteredLeft('Keep calm!', currentCustomer, 'entered');
+        }
       }
-      index += 1;
+      match = false;
+    }
+    for (const pastCustomer of pastCustomerData) {
+      let i = currentCustomerData.length;
+      for (const currentCustomer of currentCustomerData) {
+        if (pastCustomer.email === currentCustomer.email) {
+          match = true;
+        }
+        i -= 1;
+        if (i === 0 && !match) {
+          this.showAlertEnteredLeft('Keep calm!', pastCustomer, 'left');
+        }
+      }
+      match = false;
     }
   }
 
@@ -82,9 +105,16 @@ export class RetailerPage implements OnInit, OnDestroy {
     });
   }
 
-  private showAlert(message: string, customer: Customer, oldEmotion: string, newEmotion: string) {
+  private showAlertEmotionChange(message: string, customer: Customer, oldEmotion: string, newEmotion: string) {
     this.alertCtrl.create(
       {header: `${customer.name} emotion changed from ${oldEmotion} to ${newEmotion}`,
+      message,
+      buttons: ['Okay']}).then(alertEl => alertEl.present());
+  }
+
+  private showAlertEnteredLeft(message: string,  customer: Customer, verb: string) {
+    this.alertCtrl.create(
+      {header: `${customer.name} has ${verb} your shop!`,
       message,
       buttons: ['Okay']}).then(alertEl => alertEl.present());
   }

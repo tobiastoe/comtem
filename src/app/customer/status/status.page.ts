@@ -85,7 +85,7 @@ export class StatusPage implements OnInit, OnDestroy {
       alertEl.present());
     setTimeout(alertEl => {
       this.alertCtrl.dismiss();
-      }, 1000);
+      }, 2000);
   }
 
   ngOnDestroy() {

@@ -66,13 +66,13 @@ export class ShopPage implements OnInit, OnDestroy {
     } else {
       this.loadedCustomer.currentShop = newRetailer.name;
       this.loadCurrentRetailer(this.loadedCustomer, this.loadedRetailers);
-      if (!this.loadedCustomer.emotionHistory) {
+      if (!this.loadedCustomer.emotionHistory && this.loadedCustomer.emotion) {
         this.loadedCustomer.emotionHistory = [{
           emotion: this.loadedCustomer.emotion,
           time: new Date(),
           shop: this.loadedCustomer.currentShop
         }];
-      } else {
+      } else if (this.loadedCustomer.emotionHistory && this.loadedCustomer.emotion) {
       this.loadedCustomer.emotionHistory.push({
         emotion: this.loadedCustomer.emotion,
         time: new Date(),

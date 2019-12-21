@@ -51,6 +51,10 @@ export class AuthPage implements OnInit {
         authObs.subscribe(resData => {
           this.isLoading = false;
           loadingEl.dismiss();
+          if (email === 'admin@wi2.com') {
+            this.router.navigateByUrl('/admin');
+            return null;
+          }
           if (!this.isLogin) {
             if (!this.isRetailer) {
               this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe(() => {
@@ -61,15 +65,14 @@ export class AuthPage implements OnInit {
                 this.router.navigateByUrl('/retailer');
               });
             }
-          } else {
-            this.customerService.fetchingCustomer(email).subscribe(resDat => {
-              if (resData) {
-                this.router.navigateByUrl('/customer/tabs/status');
-              } else {
-                this.router.navigateByUrl('/retailer');
-            }
-          });
           }
+          this.customerService.fetchingCustomer(email).subscribe(resDat => {
+            if (resDat) {
+              this.router.navigateByUrl('/customer/tabs/status');
+            } else {
+              this.router.navigateByUrl('/retailer');
+          }
+        });
         }, errRes => {
           loadingEl.dismiss();
           const code = errRes.error.error.message;

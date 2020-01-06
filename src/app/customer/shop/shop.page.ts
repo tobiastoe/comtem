@@ -5,6 +5,7 @@ import { CustomerService } from '../customer.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Customer } from '../customer.model';
 import { Retailer } from 'src/app/retailer/retailer.model';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-shop',
@@ -21,10 +22,14 @@ export class ShopPage implements OnInit, OnDestroy {
 
   constructor(
     private customerService: CustomerService,
-    private authService: AuthService
+    private authService: AuthService,
+    private menuCtrl: MenuController,
     ) { }
 
   ngOnInit() {
+    this.menuCtrl.enable(false, 'retailer');
+    this.menuCtrl.enable(true, 'customer');
+    this.menuCtrl.enable(false, 'admin');
   }
 
   ionViewWillEnter() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { CustomerService } from '../customer.service';
@@ -19,7 +19,9 @@ export class StatusPage implements OnInit, OnDestroy {
   constructor(
     private customerService: CustomerService,
     private authService: AuthService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private menuCtrl: MenuController,
+    ) { }
 
   ngOnInit() {
     const email = this.authService.userEmail;
@@ -28,6 +30,9 @@ export class StatusPage implements OnInit, OnDestroy {
       this.loadedCustomer = customer;
       this.isLoading = false;
     });
+    this.menuCtrl.enable(false, 'retailer');
+    this.menuCtrl.enable(true, 'customer');
+    this.menuCtrl.enable(false, 'admin');
   }
 
   ionViewWillEnter() {

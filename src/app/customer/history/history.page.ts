@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer.model';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-history',
@@ -16,7 +17,11 @@ export class HistoryPage implements OnInit, OnDestroy {
   isDeleting;
   private customerSub: Subscription;
 
-  constructor(private customerService: CustomerService, private authService: AuthService) { }
+  constructor(
+    private customerService: CustomerService,
+    private authService: AuthService,
+    private menuCtrl: MenuController,
+    ) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -29,6 +34,9 @@ export class HistoryPage implements OnInit, OnDestroy {
       this.loadedCustomer = customer;
       this.isLoading = false;
     });
+    this.menuCtrl.enable(false, 'retailer');
+    this.menuCtrl.enable(true, 'customer');
+    this.menuCtrl.enable(false, 'admin');
   }
 
   deleteHistory(customer: Customer) {

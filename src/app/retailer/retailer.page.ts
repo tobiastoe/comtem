@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { RetailerService } from './retailer.service';
 import { Retailer } from './retailer.model';
 import { Customer } from '../customer/customer.model';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, MenuController } from '@ionic/angular';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 
 @Component({
@@ -25,11 +25,15 @@ export class RetailerPage implements OnInit, OnDestroy {
     private retailerService: RetailerService,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
+    private menuCtrl: MenuController,
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
     this.getData();
+    this.menuCtrl.enable(true, 'retailer');
+    this.menuCtrl.enable(false, 'customer');
+    this.menuCtrl.enable(false, 'admin');
   }
 
   getData() {

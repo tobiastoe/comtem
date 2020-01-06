@@ -1,4 +1,5 @@
 <ion-app>
+  <!-- Customer Menu -->
   <ion-menu side="start" menuId="customer">
     <ion-header>
       <ion-toolbar>
@@ -24,6 +25,54 @@
               <ion-label>History</ion-label>
             </ion-item>
         </ion-menu-toggle>
+        <ion-menu-toggle>
+            <ion-item lines="none" (click)="onLogout()" button>
+                <ion-icon name="log-out" slot="start"></ion-icon>
+                <ion-label>Logout</ion-label>
+            </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Retailer Menu -->
+  <ion-menu side="start" menuId="retailer">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+          ComTEm
+        </ion-title>
+      </ion-toolbar>
+    </ion-header> 
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+            <ion-item lines="none" (click)="onLogout()" button>
+                <ion-icon name="log-out" slot="start"></ion-icon>
+                <ion-label>Logout</ion-label>
+            </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Admin Menu -->
+  <ion-menu side="start" menuId="admin">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+          ComTEm
+        </ion-title>
+      </ion-toolbar>
+    </ion-header> 
+    <ion-content>
+      <ion-list>
         <ion-menu-toggle>
             <ion-item lines="none" (click)="onLogout()" button>
                 <ion-icon name="log-out" slot="start"></ion-icon>

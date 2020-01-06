@@ -74,7 +74,7 @@ export class StatusPage implements OnInit, OnDestroy {
     this.modalCtrl
     .create({
       component: EmotionChangedComponent,
-      cssClass: 'emotionChangedComponent.scss',
+      cssClass: 'modal-emotion-changed-css',
       componentProps: {emotion}
     })
     .then(modalEl => {

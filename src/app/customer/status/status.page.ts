@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { CustomerService } from '../customer.service';
 import { AuthService } from '../../auth/auth.service';
 import { Customer } from '../customer.model';
+import { EmotionChangedComponent } from './emotion-changed/emotion-changed.component';
 
 @Component({
   selector: 'app-status',
@@ -21,6 +22,7 @@ export class StatusPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertCtrl: AlertController,
     private menuCtrl: MenuController,
+    private modalCtrl: ModalController,
     ) { }
 
   ngOnInit() {
@@ -64,7 +66,20 @@ export class StatusPage implements OnInit, OnDestroy {
       shop: this.loadedCustomer.currentShop});
     }
     this.customerService.updateCustomer(this.loadedCustomer).subscribe();
-    this.showAlert(this.loadedCustomer.emotion);
+    // this.showAlert(this.loadedCustomer.emotion);
+    this.openModalEmotionChanged(this.loadedCustomer.emotion);
+  }
+
+  private openModalEmotionChanged(emotion: string) {
+    this.modalCtrl
+    .create({
+      component: EmotionChangedComponent,
+      cssClass: 'emotionChangedComponent.scss',
+      componentProps: {emotion}
+    })
+    .then(modalEl => {
+      modalEl.present();
+    });
   }
 
   private showAlert(emotion: string) {
@@ -83,7 +98,7 @@ export class StatusPage implements OnInit, OnDestroy {
         break;
       }
     }
-    this.alertCtrl.create({message: 
+    this.alertCtrl.create({message:
       // `<ion-icon name="${iconName}"></ion-icon>`
       `Your emotion changed to ${emotion}!`
     }).then(alertEl =>

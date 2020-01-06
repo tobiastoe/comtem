@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CustomerPageRoutingModule } from './customer-routing.module';
 
 import { CustomerPage } from './customer.page';
+import { EmotionChangedComponent } from './status/emotion-changed/emotion-changed.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CustomerPage } from './customer.page';
     IonicModule,
     CustomerPageRoutingModule
   ],
-  declarations: [CustomerPage]
+  declarations: [CustomerPage, EmotionChangedComponent],
+  entryComponents: [EmotionChangedComponent]
 })
 export class CustomerPageModule {}

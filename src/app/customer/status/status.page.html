@@ -23,8 +23,8 @@
             </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-list>
-            <!-- <ion-buttons> -->
+            <!-- Alternative 1 untereinander -->
+            <!-- <ion-list>
               <ion-button *ngIf="loadedCustomer.emotion !== 'Happy'" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
               <ion-button *ngIf="loadedCustomer.emotion === 'Happy'" class="button-emotion" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
               <ion-button *ngIf="loadedCustomer.emotion !== 'Relaxed'" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
@@ -33,15 +33,37 @@
               <ion-button *ngIf="loadedCustomer.emotion === 'Sad'" class="button-emotion" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>
               <ion-button *ngIf="loadedCustomer.emotion !== 'Stressed'" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
               <ion-button *ngIf="loadedCustomer.emotion === 'Stressed'" class="button-emotion" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
-              <!-- </ion-buttons> -->
-            </ion-list>
-            <!-- Alternative 1 -->
+            </ion-list> -->
+
+            <!-- Alternative 2 -->
             <!-- <ion-item>
               <ion-range min="1" max="4" step="1" snaps="true">
                 <ion-icon slot="start" name="sad"></ion-icon>
                 <ion-icon slot="end" name="happy"></ion-icon>
               </ion-range>
             </ion-item> -->
+
+            <!-- Alternative 3 (2x2) -->
+            <ion-row>
+              <ion-col size="6">
+                <ion-button *ngIf="loadedCustomer.emotion !== 'Stressed'" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion === 'Stressed'" class="button-emotion" color="danger" size="large" expand="block" (click)="emotionChanged('Stressed')">Stressed</ion-button>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-button *ngIf="loadedCustomer.emotion !== 'Happy'" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion === 'Happy'" class="button-emotion" color="success" size="large" expand="block" (click)="emotionChanged('Happy')">Happy</ion-button>  
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                <ion-button *ngIf="loadedCustomer.emotion !== 'Sad'" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion === 'Sad'" class="button-emotion" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">Sad</ion-button>  
+              </ion-col>
+              <ion-col size="6">
+                <ion-button *ngIf="loadedCustomer.emotion !== 'Relaxed'" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion === 'Relaxed'" class="button-emotion" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">Relaxed</ion-button>
+              </ion-col>
+            </ion-row>
           </ion-card-content>
         </ion-card>
       </ion-col>

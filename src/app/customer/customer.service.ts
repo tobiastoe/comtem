@@ -43,7 +43,7 @@ export class CustomerService {
     );
     return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
-      .post<{name: string}>(`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}`, {...newCustomer, id: null})
+      .post<{name: string}>(`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}`, {...newCustomer, id: null});
     }), tap(resData => {
           this.customer.id = resData.name;
         })

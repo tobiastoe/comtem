@@ -106,17 +106,6 @@ export class RetailerService {
       );
     }
 
-    fetchAdvices() {
-      return this.authService.token.pipe(take(1), switchMap(token => {
-        return this.http.get<Advice[]>(`https://comtem-9282e.firebaseio.com/advices.json?auth=${token}"`);
-       }), map(resData => {
-         return resData;
-       }), tap(resData => {
-         console.log(resData);
-       })
-       );
-    }
-
     getAdvice(oldEmotion: string, newEmotion: string) {
       return this.authService.token.pipe(take(1), switchMap(token => {
        return this.http.get<string>(`https://comtem-9282e.firebaseio.com/advices/${oldEmotion}/${newEmotion}.json?auth=${token}"`);

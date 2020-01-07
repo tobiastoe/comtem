@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
+import { AdvicesService } from '../advices.service';
 
 @Component({
   selector: 'app-new-advice',
@@ -11,6 +12,7 @@ export class NewAdviceComponent implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    private advicesService: AdvicesService,
   ) { }
 
   ngOnInit() {}
@@ -30,6 +32,8 @@ export class NewAdviceComponent implements OnInit {
     console.log(oldEmotion, newEmotion, description);
     form.reset();
 
-    this.modalCtrl.dismiss({ message: 'New Advice has been created!'}, 'confirm');
+    this.advicesService.addNewAdvice(oldEmotion, newEmotion, description).subscribe();
+
+    this.modalCtrl.dismiss({oldEmotion, newEmotion, description}, 'confirm');
   }
 }

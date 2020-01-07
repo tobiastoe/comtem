@@ -8,6 +8,7 @@ import { RetailerService } from '../retailer/retailer.service';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPage implements OnInit {
+  isLoading = false;
 
   constructor(
     private menuCtrl: MenuController,
@@ -15,11 +16,15 @@ export class AdminPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.menuCtrl.enable(false, 'retailer');
     this.menuCtrl.enable(false, 'customer');
     this.menuCtrl.enable(true, 'admin');
 
-    this.retailerService.fetchAdvices().subscribe();
+    this.retailerService.fetchAdvices().subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
 }

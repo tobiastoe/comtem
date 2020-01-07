@@ -4,11 +4,21 @@
       <ion-menu-button menu="admin"></ion-menu-button>
     </ion-buttons>
     <ion-title>Manage Advices</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+
+  <div text-center *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <ion-grid *ngIf="!isLoading">
     <ion-row>
       <ion-col>
         <ion-list>

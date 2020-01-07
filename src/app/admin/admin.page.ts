@@ -3,6 +3,7 @@ import { MenuController, ModalController } from '@ionic/angular';
 import { RetailerService } from '../retailer/retailer.service';
 import { NewAdviceComponent } from './new-advice/new-advice.component';
 import { AdvicesService } from './advices.service';
+import { Advice } from '../retailer/advice.model';
 
 @Component({
   selector: 'app-admin',
@@ -12,6 +13,7 @@ import { AdvicesService } from './advices.service';
 export class AdminPage implements OnInit {
 
   isLoading = false;
+  allAdvices: Advice[];
 
   constructor(
     private menuCtrl: MenuController,
@@ -25,7 +27,8 @@ export class AdminPage implements OnInit {
     this.menuCtrl.enable(false, 'customer');
     this.menuCtrl.enable(true, 'admin');
 
-    this.advicesService.fetchAdvices().subscribe(() => {
+    this.advicesService.fetchAdvices().subscribe((resData) => {
+      this.allAdvices = resData;
       this.isLoading = false;
     });
   }

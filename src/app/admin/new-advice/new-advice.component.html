@@ -1,3 +1,71 @@
-<p>
-  new-advice works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="'/admin'" (click)="onCancel()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create new Advice</ion-title>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content>
+  <form #g="ngForm" (ngSubmit)="onSubmit(g)">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label>Emotion changes</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">from</ion-label>
+            <ion-input 
+              type="string" 
+              ngModel 
+              name="oldEmotion" 
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+              <ion-label position="floating">to</ion-label>
+              <ion-input 
+                type="string"
+                ngModel
+                name="newEmotion"
+                required
+              ></ion-input>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea
+              type="string" 
+              required
+              ngModel
+              name="desription"
+              size="3"
+            ></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button
+            type="submit"
+            [disabled]="!g.valid"
+            expand="block"
+            >
+            <ion-label>Submit new Advice</ion-label>
+          </ion-button> 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>  
+</ion-content>

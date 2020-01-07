@@ -23,12 +23,15 @@ export class AdminPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.menuCtrl.enable(false, 'retailer');
     this.menuCtrl.enable(false, 'customer');
     this.menuCtrl.enable(true, 'admin');
 
     this.advicesService.fetchAdvices().subscribe((resData) => {
       this.allAdvices = resData;
+      console.log(this.allAdvices);
       this.isLoading = false;
     });
   }
@@ -49,6 +52,11 @@ export class AdminPage implements OnInit {
       }
     })
     ;
+  }
+
+  deleteAdvice(advice: Advice) {
+    this.advicesService.deleteAdvice(advice).subscribe(() => {
+    });
   }
 
 }

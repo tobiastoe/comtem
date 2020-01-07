@@ -38,7 +38,15 @@ export class AdvicesService {
         const allAdvices: Advice [] = [];
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
-            allAdvices.push(resData[key]);
+            allAdvices.push(
+              new Advice(
+                key,
+                resData[key].oldEmotion,
+                resData[key].newEmotion,
+                resData[key].description,
+                resData[key].customerRating,
+                resData[key].retailerRating,
+              ));
           }
         }
         return allAdvices;
@@ -47,4 +55,12 @@ export class AdvicesService {
       })
       );
     }
+
+  deleteAdvice(advice: Advice) {
+    console.log(advice.key);
+    return this.authService.token.pipe(take(1), switchMap(token => {
+      return this.http.delete(`https://comtem-9282e.firebaseio.com/advices/${advice.key}.json?auth=${token}"`);
+      }
+    ));
+  }
 }

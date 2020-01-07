@@ -8,6 +8,7 @@ import { Retailer } from './retailer.model';
 import { CustomerResData } from '../customer/customer.service';
 import { Customer } from '../customer/customer.model';
 import { AuthService } from '../auth/auth.service';
+import { Advice } from './advice.model';
 
 export interface RetailerResData {
   address: string;
@@ -103,6 +104,17 @@ export class RetailerService {
           this._customersInShop.next(customersInShop);
         })
       );
+    }
+
+    fetchAdvices() {
+      return this.authService.token.pipe(take(1), switchMap(token => {
+        return this.http.get<Advice[]>(`https://comtem-9282e.firebaseio.com/advices.json?auth=${token}"`);
+       }), map(resData => {
+         return resData;
+       }), tap(resData => {
+         console.log(resData);
+       })
+       );
     }
 
     getAdvice(oldEmotion: string, newEmotion: string) {

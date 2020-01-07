@@ -123,7 +123,9 @@ export class RetailerService {
         const givenAdvices = [];
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
-            givenAdvices.push(resData[key].description);
+            if (resData[key].newEmotion === newEmotion) {
+              givenAdvices.push(resData[key].description);
+            }
           }
         }
         return givenAdvices;

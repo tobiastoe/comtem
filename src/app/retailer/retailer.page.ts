@@ -66,7 +66,7 @@ export class RetailerPage implements OnInit, OnDestroy {
           const oldEmotion = pastCustomer.emotion;
           if (newEmotion !== oldEmotion) {
             this.retailerService.getAdvice(oldEmotion.toLowerCase(), newEmotion.toLowerCase()).subscribe(resData => {
-            this.showAlertEmotionChange(resData, currentCustomer, oldEmotion, newEmotion);
+            this.showAlertEmotionChange(resData[Math.floor(Math.random() * resData.length)], currentCustomer, oldEmotion, newEmotion);
             });
           }
         }

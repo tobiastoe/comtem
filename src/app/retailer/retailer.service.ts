@@ -17,6 +17,14 @@ export interface RetailerResData {
   name: string;
 }
 
+export interface AdviceResData {
+  description: string;
+  newEmotion: string;
+  oldEmotion: string;
+  customerRating ?: number;
+  retailerRating ?: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -108,11 +116,19 @@ export class RetailerService {
 
     getAdvice(oldEmotion: string, newEmotion: string) {
       return this.authService.token.pipe(take(1), switchMap(token => {
-       return this.http.get<string>(`https://comtem-9282e.firebaseio.com/advices/${oldEmotion}/${newEmotion}.json?auth=${token}"`);
+      //  return this.http.get<string>(`https://comtem-9282e.firebaseio.com/advices/${oldEmotion}/${newEmotion}.json?auth=${token}"`);
+      return this.http.get<{ [key: string]: AdviceResData}>
+        (`https://comtem-9282e.firebaseio.com/advices.json?auth=${token}&orderBy="oldEmotion"&equalTo="${oldEmotion}"`);
       }), map(resData => {
-        return resData;
+        const givenAdvices = [];
+        for (const key in resData) {
+          if (resData.hasOwnProperty(key)) {
+            givenAdvices.push(resData[key].description);
+          }
+        }
+        return givenAdvices;
       }), tap(resData => {
-        this._advice = resData;
+        // this._advice.next(resData);
       })
       );
     }

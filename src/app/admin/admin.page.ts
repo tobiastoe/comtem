@@ -54,6 +54,10 @@ export class AdminPage implements OnInit {
     ;
   }
 
+  showAdvices(oldEmotion: string, newEmotion: string) {
+
+  }
+
   deleteAdvice(advice: Advice) {
     this.advicesService.deleteAdvice(advice).subscribe(() => {
     });

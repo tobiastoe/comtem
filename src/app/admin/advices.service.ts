@@ -17,6 +17,7 @@ export class AdvicesService {
 
   addNewAdvice(oldEmotion: string, newEmotion: string, description: string) {
     const newAdvice = new Advice (
+      null,
       oldEmotion,
       newEmotion,
       description,

@@ -8,6 +8,7 @@ import { AdminPageRoutingModule } from './admin-routing.module';
 
 import { AdminPage } from './admin.page';
 import { NewAdviceComponent } from './new-advice/new-advice.component';
+import { ShowAdvicesComponent } from './show-advices/show-advices.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { NewAdviceComponent } from './new-advice/new-advice.component';
     IonicModule,
     AdminPageRoutingModule
   ],
-  entryComponents: [NewAdviceComponent],
-  declarations: [AdminPage, NewAdviceComponent]
+  entryComponents: [NewAdviceComponent, ShowAdvicesComponent],
+  declarations: [AdminPage, NewAdviceComponent, ShowAdvicesComponent]
 })
 export class AdminPageModule {}

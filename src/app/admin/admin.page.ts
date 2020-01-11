@@ -4,6 +4,7 @@ import { RetailerService } from '../retailer/retailer.service';
 import { NewAdviceComponent } from './new-advice/new-advice.component';
 import { AdvicesService } from './advices.service';
 import { Advice } from '../retailer/advice.model';
+import { ShowAdvicesComponent } from './show-advices/show-advices.component';
 
 @Component({
   selector: 'app-admin',
@@ -29,9 +30,13 @@ export class AdminPage implements OnInit {
     this.menuCtrl.enable(false, 'customer');
     this.menuCtrl.enable(true, 'admin');
 
+    this.fetchAdvices();
+  }
+
+  fetchAdvices() {
+    this.isLoading = true;
     this.advicesService.fetchAdvices().subscribe((resData) => {
       this.allAdvices = resData;
-      console.log(this.allAdvices);
       this.isLoading = false;
     });
   }
@@ -48,18 +53,27 @@ export class AdminPage implements OnInit {
     })
     .then(resultData => {
       if (resultData.role === 'confirm') {
-        console.log('New Advice Created!');
+        this.fetchAdvices();
       }
     })
     ;
   }
 
   showAdvices(oldEmotion: string, newEmotion: string) {
-
-  }
-
-  deleteAdvice(advice: Advice) {
-    this.advicesService.deleteAdvice(advice).subscribe(() => {
+    const advices = this.allAdvices;
+    this.modalCtrl
+    .create({
+      component: ShowAdvicesComponent,
+      componentProps: {oldEmotion, newEmotion, advices}
+    })
+    .then(modalEl => {
+      modalEl.present();
+      return modalEl.onDidDismiss();
+    })
+    .then(resultData => {
+      if (resultData.role === 'confirm') {
+        this.fetchAdvices();
+      }
     });
   }
 

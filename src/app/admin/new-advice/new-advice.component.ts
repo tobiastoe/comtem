@@ -25,8 +25,8 @@ export class NewAdviceComponent implements OnInit {
     if (!form.valid) {
       return;
     }
-    const oldEmotion = form.value.oldEmotion.toLowerCase();
-    const newEmotion = form.value.newEmotion.toLowerCase();
+    const oldEmotion = form.value.oldEmotion;
+    const newEmotion = form.value.newEmotion;
     const description = form.value.description;
 
     console.log(oldEmotion, newEmotion, description);

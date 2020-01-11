@@ -44,6 +44,17 @@
             Happy to ...
           </div>
           <div class="card-item">
+            <ion-list>
+              <ion-item lines="none" color="success" button (click)="showAdvices('Happy', 'Relaxed')">                   
+                <ion-label>Relaxed</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="success" button (click)="showAdvices('Happy', 'Sad')">                   
+                <ion-label>Sad</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="success" button (click)="showAdvices('Happy', 'Stressed')">                   
+                <ion-label>Stressed</ion-label>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card>      
       </ion-col>
@@ -55,6 +66,17 @@
             Sad to ...
           </div>
           <div class="card-item">
+            <ion-list>
+              <ion-item lines="none" color="warning" button (click)="showAdvices('Sad', 'Happy')">                   
+                <ion-label>Happy</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="warning" button (click)="showAdvices('Sad', 'Relaxed')">                   
+                <ion-label>Relaxed</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="warning" button (click)="showAdvices('Sad', 'Stressed')">                   
+                <ion-label>Stressed</ion-label>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card> 
       </ion-col>
@@ -64,6 +86,17 @@
             Relaxed to ...
           </div>
           <div class="card-item">
+            <ion-list>
+              <ion-item lines="none" color="medium" button (click)="showAdvices('Relaxed', 'Happy')">                   
+                <ion-label>Happy</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="medium" button (click)="showAdvices('Relaxed', 'Sad')">                   
+                <ion-label>Sad</ion-label>
+              </ion-item>
+              <ion-item lines="none" color="medium" button (click)="showAdvices('Relaxed', 'Stressed')">                   
+                <ion-label>Stressed</ion-label>
+              </ion-item>
+            </ion-list>
           </div>
         </ion-card>       
       </ion-col>

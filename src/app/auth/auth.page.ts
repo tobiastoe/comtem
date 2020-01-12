@@ -113,6 +113,10 @@ export class AuthPage implements OnInit {
     form.reset();
   }
 
+  onImagePicked(imageData: string) {
+    
+  }
+
   private showAlert(message: string) {
     this.alertCtrl.create({header: 'Authentication failed', message, buttons: ['Okay']}).then(alertEl => alertEl.present());
   }

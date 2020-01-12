@@ -65,7 +65,12 @@
                 <ion-label position="floating">ImageUrl</ion-label>
                 <ion-input type="url" name="imageUrl" required ngModel></ion-input>
               </ion-item> -->
-              <app-image-picker (imagePick)="onImagePicked($event)" *ngIf="!isLogin && passwordCtrl.valid && emailCtrl.valid"></app-image-picker>
+              <app-image-picker 
+                (imagePick)="onImagePicked($event)" 
+                *ngIf="!isLogin && passwordCtrl.valid && emailCtrl.valid"
+                ngModel
+                name="image"
+                ></app-image-picker>
               <ion-item *ngIf="!isLogin && passwordCtrl.valid && emailCtrl.valid && !isRetailer">
                 <ion-label position="floating">Birthday</ion-label>
                 <ion-datetime

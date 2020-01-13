@@ -52,10 +52,7 @@ export class RetailerService {
     return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
         .post<{name: string}>(`https://comtem-9282e.firebaseio.com/retailer.json?auth=${token}`, {...newRetailer, id: null});
-    }),
-      tap(resData => {
-        this._retailer.id = resData.name;
-      })
+      }),
     );
   }
 

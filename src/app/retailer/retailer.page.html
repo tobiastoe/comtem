@@ -19,7 +19,7 @@
             Stressed
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Stressed'">
+            <ion-list *ngIf="customer.emotion==='Stressed' && areCustomersinShop">
               <ion-item lines="none" color="danger" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -36,7 +36,7 @@
             Happy
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Happy'">
+            <ion-list *ngIf="customer.emotion==='Happy' && areCustomersinShop">
               <ion-item lines="none" color="success" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -55,7 +55,7 @@
             Sad
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Sad'">
+            <ion-list *ngIf="customer.emotion==='Sad' && areCustomersinShop">
               <ion-item lines="none" color="warning" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -72,7 +72,7 @@
             Relaxed
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Relaxed'" >
+            <ion-list *ngIf="customer.emotion==='Relaxed' && areCustomersinShop" >
               <ion-item lines="none" color="medium" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>

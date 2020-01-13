@@ -16,9 +16,10 @@ export class RetailerPage implements OnInit, OnDestroy {
   loadedRetailer: Retailer;
   isLoading = false;
   private retailerSub: Subscription;
-  customersinShop: Customer[];
+  customersinShop: Customer[] = null;
   customersinShopPast: Customer[];
   isRefreshing = true;
+  areCustomersinShop = false;
 
   constructor(
     private authService: AuthService,
@@ -42,10 +43,18 @@ export class RetailerPage implements OnInit, OnDestroy {
     this.retailerSub = this.retailerService.fetchingRetailer(email).subscribe(retailer => {
       this.loadedRetailer = retailer;
       this.retailerService.fetchingCustomersInShop(this.loadedRetailer.name).subscribe(customers => {
-        this.customersinShop = customers;
-        this.isLoading = false;
-        this.compareCustomerData(this.customersinShopPast, this.customersinShop);
+        if (customers.length !== 0) {
+          this.areCustomersinShop = true;
+          this.customersinShop = customers;
+        } else if (customers.length === 0) {
+          this.areCustomersinShop = false;
+          this.customersinShop = null;
         }
+        this.isLoading = false;
+        if (this.customersinShop !== this.customersinShopPast) {
+          this.compareCustomerData(this.customersinShopPast, this.customersinShop);
+        }
+      }
       );
     });
     if (this.isRefreshing) {
@@ -57,6 +66,14 @@ export class RetailerPage implements OnInit, OnDestroy {
 
   compareCustomerData(pastCustomerData: Customer[], currentCustomerData: Customer[]) {
     let match = false;
+    if (!pastCustomerData) {
+      this.showAlertEnteredLeft('Keep calm!', currentCustomerData[0], 'entered');
+      return;
+    } else if (!currentCustomerData) {
+      this.showAlertEnteredLeft('Keep calm!', pastCustomerData[0], 'left');
+      return;
+    }
+
     for (const currentCustomer of currentCustomerData) {
       let j = pastCustomerData.length;
       const newEmotion = currentCustomer.emotion;

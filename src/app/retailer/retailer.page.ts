@@ -16,10 +16,11 @@ export class RetailerPage implements OnInit, OnDestroy {
   loadedRetailer: Retailer;
   isLoading = false;
   private retailerSub: Subscription;
-  customersinShop: Customer[] = null;
+  customersinShop: Customer[];
   customersinShopPast: Customer[];
   isRefreshing = true;
   areCustomersinShop = false;
+  email;
 
   constructor(
     private authService: AuthService,
@@ -31,16 +32,29 @@ export class RetailerPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.getData();
+    this.email = this.authService.userEmail;
+    this.retailerSub = this.retailerService.fetchingRetailer(this.email).subscribe(retailer => {
+      this.loadedRetailer = retailer;
+      this.retailerService.fetchingCustomersInShop(this.loadedRetailer.name).subscribe(customers => {
+        if (customers.length !== 0) {
+          this.areCustomersinShop = true;
+          this.customersinShopPast = customers;
+        } else if (customers.length === 0) {
+          this.areCustomersinShop = false;
+          this.customersinShopPast = null;
+        }
+        this.isLoading = false;
+      });
+    });
     this.menuCtrl.enable(true, 'retailer');
     this.menuCtrl.enable(false, 'customer');
     this.menuCtrl.enable(false, 'admin');
+    this.getData();
   }
 
   getData() {
-    const email = this.authService.userEmail;
     this.customersinShopPast = this.customersinShop;
-    this.retailerSub = this.retailerService.fetchingRetailer(email).subscribe(retailer => {
+    this.retailerSub = this.retailerService.fetchingRetailer(this.email).subscribe(retailer => {
       this.loadedRetailer = retailer;
       this.retailerService.fetchingCustomersInShop(this.loadedRetailer.name).subscribe(customers => {
         if (customers.length !== 0) {

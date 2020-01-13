@@ -70,6 +70,8 @@ export class RetailerPage implements OnInit, OnDestroy {
         }
       }
       );
+    }, errRes => {
+      this.isRefreshing = false;
     });
     if (this.isRefreshing) {
       setTimeout(() => {

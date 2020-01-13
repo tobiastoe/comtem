@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, FormGroup } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { RetailerService } from '../retailer/retailer.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+  form: FormGroup;
   isLogin = true;
   isLoading = false;
   isRetailer = false;
@@ -29,6 +30,9 @@ export class AuthPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      image: new FormControl(null)
+    });
   }
 
   authenticate(email: string, password: string, name: string, address: string, imageUrl: string, birthday: Date) {
@@ -100,7 +104,7 @@ export class AuthPage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
+    if (!form.valid || !this.form.get('image').value) {
       return;
     }
     const email = form.value.email;
@@ -109,7 +113,7 @@ export class AuthPage implements OnInit {
     const address = form.value.address;
     const imageUrl = form.value.imageUrl;
     const birthday = form.value.birthday;
-    this.image = form.value.image;
+    console.log(this.form.value);
 
     this.authenticate(email, password, name, address, imageUrl, birthday);
     form.reset();
@@ -127,7 +131,7 @@ export class AuthPage implements OnInit {
     } else {
       imageFile = imageData;
     }
-    this.image = imageFile;
+    this.form.patchValue({ image: imageFile });
   }
 
   private showAlert(message: string) {

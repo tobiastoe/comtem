@@ -5,7 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div [formGroup]="form">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
     <ion-grid>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
@@ -66,10 +67,9 @@
                 <ion-input type="url" name="imageUrl" required ngModel></ion-input>
               </ion-item> -->
               <app-image-picker 
+                [showPreview]="form.get('image').value"
                 (imagePick)="onImagePicked($event)" 
                 *ngIf="!isLogin && passwordCtrl.valid && emailCtrl.valid"
-                ngModel
-                name="image"
                 ></app-image-picker>
               <ion-item *ngIf="!isLogin && passwordCtrl.valid && emailCtrl.valid && !isRetailer">
                 <ion-label position="floating">Birthday</ion-label>
@@ -96,10 +96,11 @@
               type="submit" 
               color="primary" 
               expand="block" 
-              [disabled]="!f.valid"
+              [disabled]="!f.valid || !form.get('image').value"
             >{{ isLogin ? 'Login' : 'Signup'}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>  
+  </form>
+  </div>
 </ion-content>

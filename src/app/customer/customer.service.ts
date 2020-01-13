@@ -29,6 +29,7 @@ export class CustomerService {
   private _retailers = new BehaviorSubject<Retailer[]>([]);
 
   addCustomer(name: string, email: string, address: string, imageUrl: string, birthday: Date) {
+    console.log('addingCustomer');
     const newCustomer = new Customer(
       Math.random().toString(),
       name,
@@ -44,10 +45,8 @@ export class CustomerService {
     return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http
       .post<{name: string}>(`https://comtem-9282e.firebaseio.com/customers.json?auth=${token}`, {...newCustomer, id: null});
-    }), tap(resData => {
-          this.customer.id = resData.name;
-        })
-      );
+      })
+    );
   }
 
   fetchingCustomer(email: string) {

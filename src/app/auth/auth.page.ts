@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { AuthService, AuthResponseData } from './auth.service';
 import { CustomerService } from '../customer/customer.service';
 import { RetailerService } from '../retailer/retailer.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +19,7 @@ export class AuthPage implements OnInit {
   isLogin = true;
   isLoading = false;
   isRetailer = false;
-  image;
+  imageUrl = '';
 
   constructor(
     private authService: AuthService,
@@ -35,7 +36,7 @@ export class AuthPage implements OnInit {
     });
   }
 
-  authenticate(email: string, password: string, name: string, address: string, imageUrl: string, birthday: Date) {
+  authenticate(email: string, password: string, name: string, address: string, birthday: Date) {
     let loadingMessage;
     if (this.isLogin) {
       loadingMessage = 'Logging in...';
@@ -62,22 +63,30 @@ export class AuthPage implements OnInit {
           }
           if (!this.isLogin) {
             if (!this.isRetailer) {
-              this.customerService.addCustomer(name, email, address, imageUrl, birthday).subscribe(() => {
-                this.router.navigateByUrl('/customer/tabs/status');
+              this.retailerService.uploadImage(this.form.get('image').value).subscribe(uploadRes => {
+                this.imageUrl = uploadRes.imageUrl;
+                this.customerService.addCustomer(name, email, address, this.imageUrl, birthday).subscribe(() => {
+                  console.log('verbinden...');
+                  this.router.navigateByUrl('/customer/tabs/status');
+              });
               });
             } else if (this.isRetailer) {
-              this.retailerService.addRetailer(name, email, address, imageUrl).subscribe(() => {
-                this.router.navigateByUrl('/retailer');
+              this.retailerService.uploadImage(this.form.get('image').value).subscribe(uploadRes => {
+                this.imageUrl = uploadRes.imageUrl;
+                this.retailerService.addRetailer(name, email, address, this.imageUrl).subscribe(() => {
+                  this.router.navigateByUrl('/retailer');
+                });
               });
             }
+          } else if (this.isLogin) {
+            this.customerService.fetchingCustomer(email).subscribe(resDat => {
+              if (resDat) {
+                this.router.navigateByUrl('/customer/tabs/status');
+              } else {
+                this.router.navigateByUrl('/retailer');
+            }
+          });
           }
-          this.customerService.fetchingCustomer(email).subscribe(resDat => {
-            if (resDat) {
-              this.router.navigateByUrl('/customer/tabs/status');
-            } else {
-              this.router.navigateByUrl('/retailer');
-          }
-        });
         }, errRes => {
           loadingEl.dismiss();
           const code = errRes.error.error.message;
@@ -104,18 +113,16 @@ export class AuthPage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid || !this.form.get('image').value) {
+    if (!form.valid) {
       return;
     }
     const email = form.value.email;
     const password = form.value.password;
     const name = form.value.name;
     const address = form.value.address;
-    const imageUrl = form.value.imageUrl;
     const birthday = form.value.birthday;
-    console.log(this.form.value);
 
-    this.authenticate(email, password, name, address, imageUrl, birthday);
+    this.authenticate(email, password, name, address, birthday);
     form.reset();
   }
 

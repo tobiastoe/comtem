@@ -33,6 +33,14 @@ export class RetailerService {
   private _customersInShop= new BehaviorSubject<Customer[]>([]);
   private _advice: string;
 
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+
+    return this.http.post<{imageUrl: string, imagePath: string}>
+      ('https://us-central1-comtem-9282e.cloudfunctions.net/storeImage', uploadData);
+  }
+
   addRetailer(name: string, email: string, address: string, imageUrl: string) {
     const newRetailer = new Retailer(
       Math.random().toString(),

@@ -26,8 +26,8 @@ export class StatusPage implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-    const email = this.authService.userEmail;
     this.isLoading = true;
+    const email = this.authService.userEmail;
     this.customerSub = this.customerService.fetchingCustomer(email).subscribe(customer => {
       this.loadedCustomer = customer;
       this.isLoading = false;

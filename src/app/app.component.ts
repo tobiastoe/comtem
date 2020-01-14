@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Plugins, Capacitor } from '@capacitor/core';
+import { CustomerService } from './customer/customer.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private platform: Platform,
     private authService: AuthService,
     private router: Router,
+    private customerService: CustomerService,
   ) {
     this.initializeApp();
   }
@@ -42,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
+    const customer = this.customerService.customer;
+    this.customerService.deleteCurrentShop(customer).subscribe();
     this.authService.logout();
   }
 

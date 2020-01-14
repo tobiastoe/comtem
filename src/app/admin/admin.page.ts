@@ -69,11 +69,6 @@ export class AdminPage implements OnInit {
     .then(modalEl => {
       modalEl.present();
       return modalEl.onDidDismiss();
-    })
-    .then(resultData => {
-      if (resultData.role === 'confirm') {
-        this.fetchAdvices();
-      }
     });
   }
 

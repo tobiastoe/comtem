@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Advice } from 'src/app/retailer/advice.model';
 import { AdvicesService } from '../advices.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, IonItemSliding } from '@ionic/angular';
 
 @Component({
   selector: 'app-show-advices',
@@ -14,7 +14,7 @@ export class ShowAdvicesComponent implements OnInit {
   @Input() advices: Advice[];
 
   leaveMessage = 'cancel';
-
+  relevantAdvices: Advice[] = [];
 
   constructor(
     private advicesService: AdvicesService,
@@ -22,11 +22,17 @@ export class ShowAdvicesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.oldEmotion = this.oldEmotion;
-    this.newEmotion = this.newEmotion;
+    for (const advice of this.advices) {
+      if (this.oldEmotion === advice.oldEmotion && this.newEmotion === advice.newEmotion) {
+        this.relevantAdvices.push(advice);
+      }
+    }
   }
 
-  deleteAdvice(advice: Advice) {
+  deleteAdvice(advice: Advice, slidingAdvice: IonItemSliding) {
+    slidingAdvice.close();
+    const index = this.advices.indexOf(advice, 0);
+    this.advices = this.advices.splice(index, 1);
     this.advicesService.deleteAdvice(advice).subscribe(() => {
       this.leaveMessage = 'confirm';
     });

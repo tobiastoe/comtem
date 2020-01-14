@@ -29,7 +29,6 @@ export class NewAdviceComponent implements OnInit {
     const newEmotion = form.value.newEmotion;
     const description = form.value.description;
 
-    console.log(oldEmotion, newEmotion, description);
     form.reset();
 
     this.advicesService.addNewAdvice(oldEmotion, newEmotion, description).subscribe();

@@ -58,7 +58,6 @@ export class AdvicesService {
     }
 
   deleteAdvice(advice: Advice) {
-    console.log(advice.key);
     return this.authService.token.pipe(take(1), switchMap(token => {
       return this.http.delete(`https://comtem-9282e.firebaseio.com/advices/${advice.key}.json?auth=${token}"`);
       }

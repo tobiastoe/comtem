@@ -15,6 +15,15 @@
 </ion-header>
 
 <ion-content>
+  <canvas baseChart 
+  [datasets]="chartData" 
+  [labels]="chartLabels" 
+  [options]="chartOptions" 
+  [colors]="chartColors"
+  [legend]="showLegend" 
+  [chartType]="chartType">
+  </canvas>
+
   <ion-list>
     <div *ngFor="let emotion of customer.emotionHistory">
       <ion-button 

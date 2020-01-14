@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import {ChartsModule} from 'ng2-charts';
+import 'chartjs-plugin-zoom';
+
 import { RetailerPageRoutingModule } from './retailer-routing.module';
 
 import { RetailerPage } from './retailer.page';
@@ -14,7 +17,8 @@ import { ViewCustomerDetailsComponent } from './view-customer-details/view-custo
     CommonModule,
     FormsModule,
     IonicModule,
-    RetailerPageRoutingModule
+    RetailerPageRoutingModule,
+    ChartsModule,
   ],
   declarations: [RetailerPage, ViewCustomerDetailsComponent],
   entryComponents: [ViewCustomerDetailsComponent]

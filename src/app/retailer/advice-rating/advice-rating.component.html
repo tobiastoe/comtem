@@ -1,9 +1,30 @@
-<div class="adviceRater">
-  <ion-content>
+<ion-content>
+<ion-card>
+    <ion-card-subtitle>
+      <ion-img style="height: 200px" [src]="customer.imageUrl"></ion-img>
+    </ion-card-subtitle>
+    <ion-card-header justify-content-center>
+      How much has the advice "{{ advice.description }}"  helped you handle {{ customer.name }}?
+    </ion-card-header>
+    <ion-card-content>
     <ion-row justify-content-center>
       <ion-col size="6">
-        <ion-button color="danger" fill="clear" (click)="onCancel()" expand="block">Close</ion-button>
+        
+      <ionic4-star-rating #rating
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#dbbf04" 
+        defaultColor = "#f4f4f4"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="logRatingChange($event)">
+      </ionic4-star-rating>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="danger" fill="outline" (click)="onCancel()">I have not used the advice!</ion-button>
       </ion-col>
     </ion-row>
-  </ion-content>
-</div>
+  </ion-card-content>
+</ion-card>
+</ion-content>

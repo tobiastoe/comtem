@@ -149,14 +149,7 @@ export class RetailerPage implements OnInit, OnDestroy {
       .then(modalEl => {
       modalEl.present();
       });
-      if (advice.retailerRating) {
-        advice.retailerRating.push(1);
-      } else {
-        advice.retailerRating = [5];
-      }
-      console.log(advice);
-      this.retailerService.updateAdvice(advice).subscribe();
-      }, 2000);
+      }, 10000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {

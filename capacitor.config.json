@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.comtem2020.ionic",
   "appName": "comtem",
   "bundledWebRuntime": false,
   "npmClient": "npm",

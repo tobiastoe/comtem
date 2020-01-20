@@ -32,6 +32,14 @@
     display: block;  
 }
 
+.adviceRater {
+    background: transparent !important;
+    height: 20%;
+    top: 80%;
+    position: absolute; 
+    display: block;  
+}
+
 .ion-invalid.ion-touched ion-label {
     color: var(--ion-color-danger);
 }

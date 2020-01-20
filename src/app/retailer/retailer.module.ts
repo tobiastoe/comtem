@@ -11,6 +11,7 @@ import { RetailerPageRoutingModule } from './retailer-routing.module';
 
 import { RetailerPage } from './retailer.page';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
+import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ViewCustomerDetailsComponent } from './view-customer-details/view-custo
     RetailerPageRoutingModule,
     ChartsModule,
   ],
-  declarations: [RetailerPage, ViewCustomerDetailsComponent],
-  entryComponents: [ViewCustomerDetailsComponent]
+  declarations: [RetailerPage, ViewCustomerDetailsComponent, AdviceRatingComponent],
+  entryComponents: [ViewCustomerDetailsComponent, AdviceRatingComponent]
 })
 export class RetailerPageModule {}

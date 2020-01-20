@@ -7,6 +7,7 @@ import { Customer } from '../customer/customer.model';
 import { ModalController, AlertController, MenuController } from '@ionic/angular';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 import { Advice } from './advice.model';
+import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
 
 @Component({
   selector: 'app-retailer',
@@ -101,7 +102,6 @@ export class RetailerPage implements OnInit, OnDestroy {
           if (newEmotion !== oldEmotion) {
             this.retailerService.getAdvice(oldEmotion, newEmotion).subscribe(resData => {
               const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
-              console.log(randomAdvice);
               if (randomAdvice) {
                 this.showAlertEmotionChange(randomAdvice.description, currentCustomer, oldEmotion, newEmotion);
                 this.askForAdviceRating(currentCustomer, randomAdvice);
@@ -141,6 +141,14 @@ export class RetailerPage implements OnInit, OnDestroy {
 
   askForAdviceRating(customer: Customer, advice: Advice) {
     setTimeout(() => {
+      this.modalCtrl
+      .create({
+        component: AdviceRatingComponent,
+        componentProps: {customer, advice}
+      })
+      .then(modalEl => {
+      modalEl.present();
+      });
       if (advice.retailerRating) {
         advice.retailerRating.push(1);
       } else {
@@ -148,7 +156,7 @@ export class RetailerPage implements OnInit, OnDestroy {
       }
       console.log(advice);
       this.retailerService.updateAdvice(advice).subscribe();
-      }, 10000);
+      }, 2000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {

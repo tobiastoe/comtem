@@ -18,11 +18,11 @@ export interface RetailerResData {
 }
 
 export interface AdviceResData {
-  description: string;
-  newEmotion: string;
   oldEmotion: string;
+  newEmotion: string;
+  description: string;
   customerRating ?: number;
-  retailerRating ?: number;
+  retailerRating ?: number[];
 }
 
 @Injectable({
@@ -129,7 +129,15 @@ export class RetailerService {
       for (const key in resData) {
         if (resData.hasOwnProperty(key)) {
           if (resData[key].newEmotion === newEmotion) {
-            givenAdvices.push(resData[key].description);
+            givenAdvices.push(new Advice (
+              key,
+              resData[key].oldEmotion,
+              resData[key].newEmotion,
+              resData[key].description,
+              resData[key].customerRating,
+              resData[key].retailerRating,
+              )
+            );
           }
         }
       }
@@ -138,5 +146,12 @@ export class RetailerService {
       // this._advice.next(resData);
     })
     );
+  }
+
+  updateAdvice(advice: Advice) {
+    return this.authService.token.pipe(take(1), switchMap(token => {
+      return this.http.put
+        (`https://comtem-9282e.firebaseio.com/advices/${advice.key}.json?auth=${token}"`, { ...advice, key: null});
+      }));
   }
 }

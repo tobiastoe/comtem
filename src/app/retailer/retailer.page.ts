@@ -6,6 +6,7 @@ import { Retailer } from './retailer.model';
 import { Customer } from '../customer/customer.model';
 import { ModalController, AlertController, MenuController } from '@ionic/angular';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
+import { Advice } from './advice.model';
 
 @Component({
   selector: 'app-retailer',
@@ -99,7 +100,14 @@ export class RetailerPage implements OnInit, OnDestroy {
           const oldEmotion = pastCustomer.emotion;
           if (newEmotion !== oldEmotion) {
             this.retailerService.getAdvice(oldEmotion, newEmotion).subscribe(resData => {
-            this.showAlertEmotionChange(resData[Math.floor(Math.random() * resData.length)], currentCustomer, oldEmotion, newEmotion);
+              const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
+              console.log(randomAdvice);
+              if (randomAdvice) {
+                this.showAlertEmotionChange(randomAdvice.description, currentCustomer, oldEmotion, newEmotion);
+                this.askForAdviceRating(currentCustomer, randomAdvice);
+              } else {
+                this.showAlertEmotionChange(null, currentCustomer, oldEmotion, newEmotion);
+              }
             });
           }
         }
@@ -129,6 +137,18 @@ export class RetailerPage implements OnInit, OnDestroy {
     if (this.retailerSub) {
       this.retailerSub.unsubscribe();
     }
+  }
+
+  askForAdviceRating(customer: Customer, advice: Advice) {
+    setTimeout(() => {
+      if (advice.retailerRating) {
+        advice.retailerRating.push(1);
+      } else {
+        advice.retailerRating = [5];
+      }
+      console.log(advice);
+      this.retailerService.updateAdvice(advice).subscribe();
+      }, 10000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {

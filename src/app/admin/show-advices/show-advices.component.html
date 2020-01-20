@@ -18,6 +18,9 @@
         <ion-label>
           {{ advice.description }}
         </ion-label>
+        <ion-text>
+          Rating: {{average(advice.retailerRating)}}
+        </ion-text>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="deleteAdvice(advice, slidingAdvice)">

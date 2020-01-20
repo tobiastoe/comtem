@@ -15,6 +15,7 @@ export class ShowAdvicesComponent implements OnInit {
 
   leaveMessage = 'cancel';
   relevantAdvices: Advice[] = [];
+  average = list => list.reduce((prev, curr) => prev + curr) / list.length;
 
   constructor(
     private advicesService: AdvicesService,

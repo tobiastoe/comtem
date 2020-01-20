@@ -43,9 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  onLogout() {
+  onLogoutCustomer() {
     const customer = this.customerService.customer;
     this.customerService.deleteCurrentShop(customer).subscribe();
+    this.authService.logout();
+  }
+
+  onLogout() {
     this.authService.logout();
   }
 

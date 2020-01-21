@@ -38,6 +38,9 @@ export class ShopPage implements OnInit, OnDestroy {
     this.isLoading = true;
     this.customerSub = this.customerService.fetchAllRetailers().subscribe(resData => {
       this.loadedRetailers = resData;
+      this.loadedRetailers.sort((a, b) => {
+        return (a.name > b.name) ? 1 : -1;
+      });
       this.customerService.fetchingCustomer(email).subscribe(customer => {
         this.loadedCustomer = customer;
         this.isLoading = false;
@@ -48,8 +51,6 @@ export class ShopPage implements OnInit, OnDestroy {
       });
     });
   }
-
-
 
   loadCurrentRetailer(customer: Customer, retailerList: Retailer[]) {
     for (const retailer of retailerList) {

@@ -36,6 +36,11 @@ export class AuthPage implements OnInit {
     });
   }
 
+  ionViewWillEnter() {
+    this.isLogin = true;
+    this.isRetailer = false;
+  }
+
   authenticate(email: string, password: string, name: string, address: string, birthday: Date) {
     let loadingMessage;
     if (this.isLogin) {

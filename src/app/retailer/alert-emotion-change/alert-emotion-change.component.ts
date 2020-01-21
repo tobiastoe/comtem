@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Customer } from 'src/app/customer/customer.model';
 import { ModalController } from '@ionic/angular';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-alert-emotion-change',

@@ -19,7 +19,7 @@
             Stressed
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Stressed' && areCustomersinShop">
+            <ion-list *ngIf="customer.emotion==='Stressed' && areCustomersinShop" mode="ios">
               <ion-item lines="none" color="danger" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -36,7 +36,7 @@
             Happy
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Happy' && areCustomersinShop">
+            <ion-list *ngIf="customer.emotion==='Happy' && areCustomersinShop" mode="ios">
               <ion-item lines="none" color="success" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -55,7 +55,7 @@
             Sad
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Sad' && areCustomersinShop">
+            <ion-list *ngIf="customer.emotion==='Sad' && areCustomersinShop" mode="ios">
               <ion-item lines="none" color="warning" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -72,7 +72,7 @@
             Relaxed
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
-            <ion-list *ngIf="customer.emotion==='Relaxed' && areCustomersinShop">
+            <ion-list *ngIf="customer.emotion==='Relaxed' && areCustomersinShop" mode="ios">
               <ion-item lines="none" color="medium" button (click)="viewCustomer(customer, loadedRetailer)">              
                 <ion-avatar slot="start">
                   <ion-img [src]="customer.imageUrl"></ion-img>
@@ -86,7 +86,11 @@
     </ion-row>
     <ion-row>
       <ion-col size="11" offset="0.5">
-        <ion-button (click)="switchRefreshingMode()" expand="block" fill="outline" [color]="isRefreshing ? 'danger' : 'dark'">{{!isRefreshing ? 'Keep Updating!' : 'Stop Updating!'}}</ion-button>
+        <ion-button 
+          (click)="switchRefreshingMode()" 
+          expand="block" 
+          fill="outline" 
+          [color]="isRefreshing ? 'danger' : 'dark'">{{!isRefreshing ? 'Keep Updating!' : 'Stop Updating!'}}</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

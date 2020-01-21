@@ -8,6 +8,7 @@ import { ModalController, AlertController, MenuController } from '@ionic/angular
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 import { Advice } from './advice.model';
 import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
+import { AlertEmotionChangeComponent } from './alert-emotion-change/alert-emotion-change.component';
 
 @Component({
   selector: 'app-retailer',
@@ -149,7 +150,7 @@ export class RetailerPage implements OnInit, OnDestroy {
       .then(modalEl => {
       modalEl.present();
       });
-      }, 10000);
+      }, 2000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {
@@ -164,10 +165,18 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   private showAlertEmotionChange(message: string, customer: Customer, oldEmotion: string, newEmotion: string) {
-    this.alertCtrl.create(
-      {header: `${customer.name} emotion changed from ${oldEmotion} to ${newEmotion}`,
-      message,
-      buttons: ['Okay']}).then(alertEl => alertEl.present());
+    // this.alertCtrl.create(
+    //   {header: `${customer.name} emotion changed from ${oldEmotion} to ${newEmotion}`,
+    //   message,
+    //   buttons: ['Okay']}).then(alertEl => alertEl.present());
+    this.modalCtrl
+      .create({
+        component: AlertEmotionChangeComponent,
+        componentProps: {customer, oldEmotion, newEmotion, message}
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
   }
 
   private showAlertEnteredLeft(message: string,  customer: Customer, verb: string) {

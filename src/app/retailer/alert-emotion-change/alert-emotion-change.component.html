@@ -1,26 +1,28 @@
 <ion-content>
     <ion-card>
-        <ion-card-title color="danger" *ngIf="negativeChange  && !isLoading" text-center>
+        <ion-card-title color="danger" *ngIf="negativeChange  && !isLoading" text-center margin-top="2px">
             Negative Change!
         </ion-card-title>
-        <ion-card-title color="success" *ngIf="!negativeChange && !isLoading" text-center>
+        <ion-card-title color="success" *ngIf="!negativeChange && !isLoading" text-center margin-top="2px">
             Positive Change!
         </ion-card-title>
         <ion-card-content>
-            <ion-row>
-                <ion-col>
-                    <ion-avatar>
-                        <img [src]="customer.imageUrl">
-                    </ion-avatar>
-                </ion-col>
-                <ion-col>
-                    {{customer.name}} {{endingS ? "'" : "'s"}} mood changed from {{oldEmotion}} to {{newEmotion}}. {{ message }}
-                    <ion-button expand="block" fill="outline" (click)="onCancel()">
-                        <ion-label>Okay</ion-label>
-                        <ion-icon name="checkmark" slot="end"></ion-icon>
-                    </ion-button>
-                </ion-col>
-            </ion-row>
+            <ion-grid>
+                <ion-row align-items-center>
+                    <ion-col size="2">
+                        <ion-avatar>
+                            <img [src]="customer.imageUrl">
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col size="10">
+                        {{customer.name}}{{endingS ? "'" : "'s"}} mood changed from {{oldEmotion}} to {{newEmotion}}. {{ message }}
+                        <ion-button expand="block" fill="outline" (click)="onCancel()">
+                            <ion-label>Okay</ion-label>
+                            <ion-icon name="checkmark" slot="end"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-card-content>
     </ion-card>
 </ion-content>

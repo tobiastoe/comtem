@@ -86,10 +86,10 @@ export class RetailerPage implements OnInit, OnDestroy {
   compareCustomerData(pastCustomerData: Customer[], currentCustomerData: Customer[]) {
     let match = false;
     if (!pastCustomerData) {
-      this.showAlertEnteredLeft('Keep calm!', currentCustomerData[0], 'entered');
+      this.showAlertEntered(currentCustomerData[0]);
       return;
     } else if (!currentCustomerData) {
-      this.showAlertEnteredLeft('Keep calm!', pastCustomerData[0], 'left');
+      this.showAlertLeft('You have done your best!', pastCustomerData[0], 'left');
       return;
     }
 
@@ -114,7 +114,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         }
         j -= 1;
         if (j === 0 && !match) {
-          this.showAlertEnteredLeft('Keep calm!', currentCustomer, 'entered');
+          this.showAlertEntered(currentCustomer);
         }
       }
       match = false;
@@ -127,7 +127,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         }
         i -= 1;
         if (i === 0 && !match) {
-          this.showAlertEnteredLeft('Keep calm!', pastCustomer, 'left');
+          this.showAlertLeft('You have done your best!', pastCustomer, 'left');
         }
       }
       match = false;
@@ -179,7 +179,11 @@ export class RetailerPage implements OnInit, OnDestroy {
       });
   }
 
-  private showAlertEnteredLeft(message: string,  customer: Customer, verb: string) {
+  private showAlertEntered(customer: Customer) {
+
+  }
+
+  private showAlertLeft(message: string,  customer: Customer, verb: string) {
     this.alertCtrl.create(
       {header: `${customer.name} has ${verb} your shop!`,
       message,

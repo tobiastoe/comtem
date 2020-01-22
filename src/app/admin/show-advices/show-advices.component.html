@@ -18,7 +18,7 @@
         <ion-label>
           {{ advice.description }}
         </ion-label>
-        <ion-text>
+        <ion-text *ngIf="advice.retailerRating">
           Rating: {{average(advice.retailerRating)}}
         </ion-text>
       </ion-item>

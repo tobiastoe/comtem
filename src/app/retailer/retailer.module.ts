@@ -15,6 +15,7 @@ import { RetailerPage } from './retailer.page';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
 import { AlertEmotionChangeComponent } from './alert-emotion-change/alert-emotion-change.component';
+import { AlertCustomerEntersComponent } from './alert-customer-enters/alert-customer-enters.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,18 @@ import { AlertEmotionChangeComponent } from './alert-emotion-change/alert-emotio
     ChartsModule,
     StarRatingModule,
   ],
-  declarations: [RetailerPage, ViewCustomerDetailsComponent, AdviceRatingComponent, AlertEmotionChangeComponent],
-  entryComponents: [ViewCustomerDetailsComponent, AdviceRatingComponent, AlertEmotionChangeComponent]
+  declarations: [
+    RetailerPage,
+    ViewCustomerDetailsComponent,
+    AdviceRatingComponent,
+    AlertEmotionChangeComponent,
+     AlertCustomerEntersComponent
+    ],
+  entryComponents: [
+    ViewCustomerDetailsComponent,
+    AdviceRatingComponent,
+    AlertEmotionChangeComponent,
+    AlertCustomerEntersComponent
+  ]
 })
 export class RetailerPageModule {}

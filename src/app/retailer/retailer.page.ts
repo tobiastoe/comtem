@@ -9,6 +9,7 @@ import { ViewCustomerDetailsComponent } from './view-customer-details/view-custo
 import { Advice } from './advice.model';
 import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
 import { AlertEmotionChangeComponent } from './alert-emotion-change/alert-emotion-change.component';
+import { AlertCustomerEntersComponent } from './alert-customer-enters/alert-customer-enters.component';
 
 @Component({
   selector: 'app-retailer',
@@ -86,7 +87,15 @@ export class RetailerPage implements OnInit, OnDestroy {
   compareCustomerData(pastCustomerData: Customer[], currentCustomerData: Customer[]) {
     let match = false;
     if (!pastCustomerData) {
-      this.showAlertEntered(currentCustomerData[0]);
+      this.retailerService.getAdvice('Entered', currentCustomerData[0].emotion).subscribe(resData => {
+        const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
+        if (randomAdvice) {
+          this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion);
+          this.askForAdviceRating(currentCustomerData[0], randomAdvice);
+        } else {
+          this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion);
+        }
+      });
       return;
     } else if (!currentCustomerData) {
       this.showAlertLeft('You have done your best!', pastCustomerData[0], 'left');
@@ -114,7 +123,15 @@ export class RetailerPage implements OnInit, OnDestroy {
         }
         j -= 1;
         if (j === 0 && !match) {
-          this.showAlertEntered(currentCustomer);
+          this.retailerService.getAdvice('Entered', currentCustomer.emotion).subscribe(resData => {
+            const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
+            if (randomAdvice) {
+              this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion);
+              this.askForAdviceRating(currentCustomer, randomAdvice);
+            } else {
+              this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion);
+            }
+          });
         }
       }
       match = false;
@@ -127,7 +144,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         }
         i -= 1;
         if (i === 0 && !match) {
-          this.showAlertLeft('You have done your best!', pastCustomer, 'left');
+          this.showAlertLeft('You have done your best.', pastCustomer, 'left');
         }
       }
       match = false;
@@ -150,7 +167,7 @@ export class RetailerPage implements OnInit, OnDestroy {
       .then(modalEl => {
       modalEl.present();
       });
-      }, 2000);
+      }, 30000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {
@@ -179,8 +196,15 @@ export class RetailerPage implements OnInit, OnDestroy {
       });
   }
 
-  private showAlertEntered(customer: Customer) {
-
+  private showAlertEntered(customer: Customer, message: string, customerEmotion: string) {
+    this.modalCtrl
+    .create({
+      component: AlertCustomerEntersComponent,
+      componentProps: {customer, message, customerEmotion}
+    })
+    .then(modalEl => {
+      modalEl.present();
+    });
   }
 
   private showAlertLeft(message: string,  customer: Customer, verb: string) {

@@ -162,6 +162,7 @@ export class RetailerPage implements OnInit, OnDestroy {
       this.modalCtrl
       .create({
         component: AdviceRatingComponent,
+        cssClass: 'modal-retailer-advice-css',
         componentProps: {customer, advice}
       })
       .then(modalEl => {
@@ -189,6 +190,7 @@ export class RetailerPage implements OnInit, OnDestroy {
     this.modalCtrl
       .create({
         component: AlertEmotionChangeComponent,
+        cssClass: 'modal-retailer-emotion-css',
         componentProps: {customer, oldEmotion, newEmotion, message}
       })
       .then(modalEl => {
@@ -200,6 +202,7 @@ export class RetailerPage implements OnInit, OnDestroy {
     this.modalCtrl
     .create({
       component: AlertCustomerEntersComponent,
+      cssClass: 'modal-retailer-emotion-css',
       componentProps: {customer, message, customerEmotion}
     })
     .then(modalEl => {

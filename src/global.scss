@@ -25,16 +25,25 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-.modal-emotion-changed-css .modal-wrapper{
+.modal-customer-css .modal-wrapper{
     background: transparent !important;
     top: 41%;
     position: absolute; 
     display: block;  
 }
 
-.modal-advice-rating-css .modal-wrapper{
+.modal-retailer-emotion-css .modal-wrapper{
     background: transparent !important;
-    top: 41%;
+    height: 30%;
+    top: 35%;
+    position: absolute; 
+    display: block;  
+}
+
+.modal-retailer-advice-css .modal-wrapper{
+    background: transparent !important;
+    height: 35%;
+    top: 35%;
     position: absolute; 
     display: block;  
 }

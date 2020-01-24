@@ -39,11 +39,11 @@ export class ImagePickerComponent implements OnInit {
       source: CameraSource.Prompt,
       correctOrientation: true,
       height: 320,
-      resultType: CameraResultType.Base64
+      resultType: CameraResultType.DataUrl
     })
       .then(image => {
-        this.selectedImage = image.base64String;
-        this.imagePick.emit(image.base64String);
+        this.selectedImage = image.dataUrl;
+        this.imagePick.emit(this.selectedImage);
       })
       .catch(error => {
         console.log(error);

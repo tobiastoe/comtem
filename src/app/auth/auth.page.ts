@@ -70,14 +70,15 @@ export class AuthPage implements OnInit {
             if (!this.isRetailer) {
               this.retailerService.uploadImage(this.form.get('image').value).subscribe(uploadRes => {
                 this.imageUrl = uploadRes.imageUrl;
+                console.log(this.imageUrl);
                 this.customerService.addCustomer(name, email, address, this.imageUrl, birthday).subscribe(() => {
-                  console.log('verbinden...');
                   this.router.navigateByUrl('/customer/tabs/status');
               });
               });
             } else if (this.isRetailer) {
               this.retailerService.uploadImage(this.form.get('image').value).subscribe(uploadRes => {
                 this.imageUrl = uploadRes.imageUrl;
+                console.log(this.imageUrl);
                 this.retailerService.addRetailer(name, email, address, this.imageUrl).subscribe(() => {
                   this.router.navigateByUrl('/retailer');
                 });

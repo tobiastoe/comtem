@@ -93,7 +93,7 @@ export class RetailerPage implements OnInit, OnDestroy {
           this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion);
           this.askForAdviceRating(currentCustomerData[0], randomAdvice);
         } else {
-          this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion);
+          this.showAlertEntered(currentCustomerData[0], '', currentCustomerData[0].emotion);
         }
       });
       return;
@@ -129,7 +129,7 @@ export class RetailerPage implements OnInit, OnDestroy {
               this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion);
               this.askForAdviceRating(currentCustomer, randomAdvice);
             } else {
-              this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion);
+              this.showAlertEntered(currentCustomer, '', currentCustomer.emotion);
             }
           });
         }

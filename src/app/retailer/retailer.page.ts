@@ -159,16 +159,20 @@ export class RetailerPage implements OnInit, OnDestroy {
 
   askForAdviceRating(customer: Customer, advice: Advice) {
     setTimeout(() => {
-      this.modalCtrl
-      .create({
-        component: AdviceRatingComponent,
-        cssClass: 'modal-retailer-advice-css',
-        componentProps: {customer, advice}
-      })
-      .then(modalEl => {
-      modalEl.present();
-      });
-      }, 30000);
+      if (this.authService.userEmail) {
+        this.modalCtrl
+        .create({
+          component: AdviceRatingComponent,
+          cssClass: 'modal-retailer-advice-css',
+          componentProps: {customer, advice}
+        })
+        .then(modalEl => {
+        modalEl.present();
+        });
+      } else {
+        return;
+      }
+    }, 30000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {

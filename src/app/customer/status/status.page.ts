@@ -6,6 +6,7 @@ import { CustomerService } from '../customer.service';
 import { AuthService } from '../../auth/auth.service';
 import { Customer } from '../customer.model';
 import { EmotionChangedComponent } from './emotion-changed/emotion-changed.component';
+import { PushupComponent } from '../pushup/pushup.component';
 
 @Component({
   selector: 'app-status',
@@ -16,6 +17,7 @@ export class StatusPage implements OnInit, OnDestroy {
   loadedCustomer: Customer;
   isLoading;
   private customerSub: Subscription;
+  timer: number;
 
   constructor(
     private customerService: CustomerService,
@@ -27,9 +29,11 @@ export class StatusPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
+    this.timerReset();
     const email = this.authService.userEmail;
     this.customerSub = this.customerService.fetchingCustomer(email).subscribe(customer => {
       this.loadedCustomer = customer;
+      this.openPushup(this.loadedCustomer);
       this.isLoading = false;
     });
     this.menuCtrl.enable(false, 'retailer');
@@ -41,7 +45,12 @@ export class StatusPage implements OnInit, OnDestroy {
     this.loadedCustomer = this.customerService.customer;
   }
 
+  timerReset() {
+    this.timer = 300;
+  }
+
   emotionChanged(newEmotion) {
+    this.timerReset();
     this.loadedCustomer.lastEmotion = this.loadedCustomer.emotion;
     this.loadedCustomer.emotion = newEmotion;
     if (!this.loadedCustomer.currentShop) {
@@ -68,6 +77,35 @@ export class StatusPage implements OnInit, OnDestroy {
     this.customerService.updateCustomer(this.loadedCustomer).subscribe();
     // this.showAlert(this.loadedCustomer.emotion);
     this.openModalEmotionChanged(this.loadedCustomer.emotion);
+  }
+
+  private openPushup(customer: Customer) {
+    if (this.timer === 0 && this.authService.userEmail) {
+      this.modalCtrl
+      .create({
+        component: PushupComponent,
+        cssClass: 'modal-customer-css',
+        componentProps: {customer}
+      })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(resultData => {
+        if (resultData.role === 'yes') {
+          return;
+        } else if (resultData.role === 'no') {
+          this.timerReset();
+          this.openPushup(customer);
+        }
+      });
+    }
+    this.timer = this.timer - 1;
+    if (this.timer >= 0 && this.authService.userEmail) {
+      setTimeout(() => {
+        this.openPushup(customer);
+        }, 1000);
+    }
   }
 
   private openModalEmotionChanged(emotion: string) {

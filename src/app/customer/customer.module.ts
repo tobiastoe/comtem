@@ -8,6 +8,7 @@ import { CustomerPageRoutingModule } from './customer-routing.module';
 
 import { CustomerPage } from './customer.page';
 import { EmotionChangedComponent } from './status/emotion-changed/emotion-changed.component';
+import { PushupComponent } from './pushup/pushup.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { EmotionChangedComponent } from './status/emotion-changed/emotion-change
     IonicModule,
     CustomerPageRoutingModule
   ],
-  declarations: [CustomerPage, EmotionChangedComponent],
-  entryComponents: [EmotionChangedComponent]
+  declarations: [CustomerPage, EmotionChangedComponent, PushupComponent],
+  entryComponents: [EmotionChangedComponent, PushupComponent]
 })
 export class CustomerPageModule {}

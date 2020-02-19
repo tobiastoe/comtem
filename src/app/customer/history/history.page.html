@@ -33,12 +33,13 @@
           <ion-card-content>
             <ion-list>
               <ion-item 
-                  button lines="none"
+                  button 
+                  lines="none"
                   *ngFor="let emotion of this.loadedCustomer.emotionHistory" 
-                  [color]="setColor(emotion.emotion)"   
+                  [color]="setColor(emotion.emotion, emotion.time)"   
                   margin="2px"
                   >
-                  <ion-label>{{emotion.emotion}}, {{emotion.shop}}, {{emotion.time}}</ion-label>
+                  {{this.twoEmotions}}, {{emotion.shop}} <br> {{day}}, {{time}}
               </ion-item>
             </ion-list>
           </ion-card-content>

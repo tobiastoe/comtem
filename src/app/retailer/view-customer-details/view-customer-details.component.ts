@@ -16,9 +16,11 @@ export class ViewCustomerDetailsComponent implements OnInit {
   @Input() customer: Customer;
   @Input() retailer: Retailer;
 
+  twoEmotions: string;
+
   // Data
   chartData: ChartDataSets[] = [{ data: [], label: '' }];
-  chartLabels: Label[] = ['Happy', 'Relaxed', 'Sad', 'Stressed'];
+  chartLabels: Label[] = ['excited / happy', 'satisfied / relaxed', 'sad / exhausted', 'annoyed / concerned'];
 
   // Options
   chartOptions = {
@@ -39,7 +41,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
   chartColors: Color[] = [
     {
       borderColor: '#000000',
-      backgroundColor: ['#10dc60', '#989aa2', '#ffce00', '#f04141']
+      backgroundColor: ['#10dc60', '#00c3ff', '#ffce00', '#f04141']
     }
   ];
   chartType = 'pie';
@@ -58,15 +60,19 @@ export class ViewCustomerDetailsComponent implements OnInit {
   setColor(currentEmotion) {
     switch (currentEmotion) {
       case 'Happy': {
+        this.twoEmotions = 'excited / happy';
         return 'success';
       }
       case 'Relaxed': {
+        this.twoEmotions = 'satisfied / relaxed';
         return 'medium';
       }
       case 'Sad': {
+        this.twoEmotions = 'sad / exhausted';
         return 'warning';
       }
       case 'Stressed': {
+        this.twoEmotions = 'annoyed / concerned';
         return 'danger';
       }
     }

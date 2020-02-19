@@ -16,7 +16,7 @@
       <ion-col>
         <ion-card color="danger">
           <div class="card-title">
-            Stressed
+            Annoyed / Concerned
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Stressed' && areCustomersinShop" mode="ios">
@@ -33,7 +33,7 @@
       <ion-col>
         <ion-card color="success">
           <div class="card-title">
-            Happy
+            Excited / Happy
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Happy' && areCustomersinShop" mode="ios">
@@ -52,7 +52,7 @@
       <ion-col>
         <ion-card color="warning">
           <div class="card-title">
-            Sad
+            Sad / Exhausted
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Sad' && areCustomersinShop" mode="ios">
@@ -69,7 +69,7 @@
       <ion-col>
         <ion-card color="medium">
           <div class="card-title">
-            Relaxed
+            Satisfied / Relaxed
           </div>
           <div class="card-item" *ngFor="let customer of customersinShop">
             <ion-list *ngIf="customer.emotion==='Relaxed' && areCustomersinShop" mode="ios">

@@ -14,7 +14,7 @@
                     </ion-avatar>
                 </ion-col>
                 <ion-col size="10">
-                    {{customer.name}}{{endingS ? "'" : "'s"}} mood changed from {{oldEmotion}} to {{newEmotion}}. {{ message }}
+                    {{customer.name}}{{endingS ? "'" : "'s"}} mood changed from {{twoEmotionsOld}} to {{twoEmotionsNew}}. {{ message }}
                     <ion-button expand="block" fill="outline" (click)="onCancel()">
                         <ion-label>Okay</ion-label>
                         <ion-icon name="checkmark" slot="end"></ion-icon>

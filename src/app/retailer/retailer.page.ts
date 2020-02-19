@@ -158,21 +158,22 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   askForAdviceRating(customer: Customer, advice: Advice) {
-    setTimeout(() => {
-      if (this.authService.userEmail) {
-        this.modalCtrl
-        .create({
-          component: AdviceRatingComponent,
-          cssClass: 'modal-retailer-advice-css',
-          componentProps: {customer, advice}
-        })
-        .then(modalEl => {
-        modalEl.present();
-        });
-      } else {
-        return;
-      }
-    }, 30000);
+    // ENTFERNT FÜR NUTZERTEST
+    // setTimeout(() => {
+    //   if (this.authService.userEmail) {
+    //     this.modalCtrl
+    //     .create({
+    //       component: AdviceRatingComponent,
+    //       cssClass: 'modal-retailer-advice-css',
+    //       componentProps: {customer, advice}
+    //     })
+    //     .then(modalEl => {
+    //     modalEl.present();
+    //     });
+    //   } else {
+    //     return;
+    //   }
+    // }, 30000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {
@@ -219,6 +220,10 @@ export class RetailerPage implements OnInit, OnDestroy {
       {header: `${customer.name} has ${verb} your shop!`,
       message,
       buttons: ['Okay']}).then(alertEl => alertEl.present());
+    // ab hier: für NUTZERTEST hinzugefügt
+    setTimeout(() => {
+      this.alertCtrl.dismiss();
+      }, 15000);
   }
 
   switchRefreshingMode() {

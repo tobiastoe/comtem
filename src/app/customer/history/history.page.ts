@@ -16,6 +16,9 @@ export class HistoryPage implements OnInit, OnDestroy {
   isLoading;
   isDeleting;
   private customerSub: Subscription;
+  twoEmotions: string;
+  day: string;
+  time: string;
 
   constructor(
     private customerService: CustomerService,
@@ -47,18 +50,24 @@ export class HistoryPage implements OnInit, OnDestroy {
     });
   }
 
-  setColor(currentEmotion) {
+  setColor(currentEmotion, date) {
+    this.day = date.substring(0, 10);
+    this.time = date.substring(11, 20);
     switch (currentEmotion) {
       case 'Happy': {
+        this.twoEmotions = 'excited / happy';
         return 'success';
       }
       case 'Relaxed': {
+        this.twoEmotions = 'satisfied / relaxed';
         return 'medium';
       }
       case 'Sad': {
+        this.twoEmotions = 'sad / exhausted';
         return 'warning';
       }
       case 'Stressed': {
+        this.twoEmotions = 'annoyed / concerned';
         return 'danger';
       }
     }

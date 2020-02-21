@@ -229,7 +229,7 @@ export class RetailerPage implements OnInit, OnDestroy {
     if (oldEmotion === 'entered') {
       newMessage = customer.name + ' has entered your shop. ' + customer.name + ' is feeling ' + twoEmotionsNew + '!';
     } else if (oldEmotion === 'left') {
-      newMessage = customer.name + ' has left your shop. ';
+      newMessage = customer.name + ' has left your shop. You have done your best!';
     } else {
       newMessage = customer.name + ' emotion changed from ' + twoEmotionsOld + ' to ' + twoEmotionsNew + '!';
     }
@@ -287,14 +287,30 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   private showAlertLeft(message: string,  customer: Customer, verb: string) {
-    this.addItemToCurrentChanges (customer, 'left', null);
+    let isOpen = true;
     this.alertCtrl.create(
       {header: `${customer.name} has ${verb} your shop!`,
       message,
-      buttons: ['Okay']}).then(alertEl => alertEl.present());
-    // ab hier: für NUTZERTEST hinzugefügt
+      buttons: [{
+        text: 'Okay',
+        role: 'pressed'
+        }]
+      })
+      .then(alertEl => {
+          alertEl.present();
+          return alertEl.onDidDismiss();
+        }
+      ).then(resultData => {
+        if (resultData.role !== 'pressed') {
+          this.addItemToCurrentChanges (customer, 'left', null);
+        } else if (resultData.role === 'pressed') {
+          isOpen = false;
+        }
+      });
     setTimeout(() => {
-      this.alertCtrl.dismiss();
+      if (isOpen) {
+        this.alertCtrl.dismiss();
+      }
       }, 15000);
   }
 

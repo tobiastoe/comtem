@@ -15,9 +15,9 @@
   <ion-list >
     <ion-item-sliding *ngFor="let advice of relevantAdvices" #slidingAdvice>
       <ion-item>
-        <ion-label>
+        
           {{ advice.description }}
-        </ion-label>
+        
         <ion-text *ngIf="advice.retailerRating">
           Rating: {{average(advice.retailerRating)}}
         </ion-text>

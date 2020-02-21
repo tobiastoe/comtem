@@ -18,6 +18,7 @@ export class AlertEmotionChangeComponent implements OnInit {
   endingS = false;
   twoEmotionsOld: string;
   twoEmotionsNew: string;
+  isOpen = true;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -61,14 +62,16 @@ export class AlertEmotionChangeComponent implements OnInit {
         break;
       }
     }
-    // ab hier: HINZUGEFÜGT FÜR NUTZERTEST
     setTimeout(() => {
-      this.onCancel();
+      if (this.isOpen) {
+      this.modalCtrl.dismiss(null, 'timeout');
+    }
       }, 15000);
   }
 
   onCancel() {
-    this.modalCtrl.dismiss();
+    this.isOpen = false;
+    this.modalCtrl.dismiss(null, 'cancel');
   }
 
   checkS() {

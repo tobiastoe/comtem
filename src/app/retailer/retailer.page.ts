@@ -91,10 +91,9 @@ export class RetailerPage implements OnInit, OnDestroy {
       this.retailerService.getAdvice('Entered', currentCustomerData[0].emotion).subscribe(resData => {
         const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
         if (randomAdvice) {
-          this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion);
-          this.askForAdviceRating(currentCustomerData[0], randomAdvice);
+          this.showAlertEntered(currentCustomerData[0], randomAdvice.description, currentCustomerData[0].emotion, randomAdvice);
         } else {
-          this.showAlertEntered(currentCustomerData[0], '', currentCustomerData[0].emotion);
+          this.showAlertEntered(currentCustomerData[0], '', currentCustomerData[0].emotion, null);
         }
       });
       return;
@@ -114,10 +113,9 @@ export class RetailerPage implements OnInit, OnDestroy {
             this.retailerService.getAdvice(oldEmotion, newEmotion).subscribe(resData => {
               const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
               if (randomAdvice) {
-                this.showAlertEmotionChange(randomAdvice.description, currentCustomer, oldEmotion, newEmotion);
-                this.askForAdviceRating(currentCustomer, randomAdvice);
+                this.showAlertEmotionChange(randomAdvice.description, currentCustomer, oldEmotion, newEmotion, randomAdvice);
               } else {
-                this.showAlertEmotionChange(null, currentCustomer, oldEmotion, newEmotion);
+                this.showAlertEmotionChange(null, currentCustomer, oldEmotion, newEmotion, null);
               }
             });
           }
@@ -127,10 +125,9 @@ export class RetailerPage implements OnInit, OnDestroy {
           this.retailerService.getAdvice('Entered', currentCustomer.emotion).subscribe(resData => {
             const randomAdvice: Advice = resData[Math.floor(Math.random() * resData.length)];
             if (randomAdvice) {
-              this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion);
-              this.askForAdviceRating(currentCustomer, randomAdvice);
+              this.showAlertEntered(currentCustomer, randomAdvice.description, currentCustomer.emotion, randomAdvice);
             } else {
-              this.showAlertEntered(currentCustomer, '', currentCustomer.emotion);
+              this.showAlertEntered(currentCustomer, '', currentCustomer.emotion, null);
             }
           });
         }
@@ -159,22 +156,21 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   askForAdviceRating(customer: Customer, advice: Advice) {
-    // ENTFERNT FÜR NUTZERTEST
-    // setTimeout(() => {
-    //   if (this.authService.userEmail) {
-    //     this.modalCtrl
-    //     .create({
-    //       component: AdviceRatingComponent,
-    //       cssClass: 'modal-retailer-advice-css',
-    //       componentProps: {customer, advice}
-    //     })
-    //     .then(modalEl => {
-    //     modalEl.present();
-    //     });
-    //   } else {
-    //     return;
-    //   }
-    // }, 30000);
+    setTimeout(() => {
+      if (this.authService.userEmail) {
+        this.modalCtrl
+        .create({
+          component: AdviceRatingComponent,
+          cssClass: 'modal-retailer-advice-css',
+          componentProps: {customer, advice}
+        })
+        .then(modalEl => {
+        modalEl.present();
+        });
+      } else {
+        return;
+      }
+    }, 30000);
   }
 
   viewCustomer(customer: Customer, retailer: Retailer) {
@@ -230,12 +226,12 @@ export class RetailerPage implements OnInit, OnDestroy {
       }
     }
 
-    if (oldEmotion) {
-      newMessage = customer.name + ' emotion changed from ' + twoEmotionsOld + ' to ' + twoEmotionsNew + '!';
-    } else if (!oldEmotion && newEmotion) {
+    if (oldEmotion === 'entered') {
       newMessage = customer.name + ' has entered your shop. ' + customer.name + ' is feeling ' + twoEmotionsNew + '!';
-    } else {
+    } else if (oldEmotion === 'left') {
       newMessage = customer.name + ' has left your shop. ';
+    } else {
+      newMessage = customer.name + ' emotion changed from ' + twoEmotionsOld + ' to ' + twoEmotionsNew + '!';
     }
     this.messageList.push(newMessage);
   }
@@ -244,8 +240,7 @@ export class RetailerPage implements OnInit, OnDestroy {
     this.messageList = [];
   }
 
-  private showAlertEmotionChange(message: string, customer: Customer, oldEmotion: string, newEmotion: string) {
-    this.addItemToCurrentChanges (customer, oldEmotion, newEmotion);
+  private showAlertEmotionChange(message: string, customer: Customer, oldEmotion: string, newEmotion: string, randomAdvice: Advice) {
     this.modalCtrl
       .create({
         component: AlertEmotionChangeComponent,
@@ -254,19 +249,34 @@ export class RetailerPage implements OnInit, OnDestroy {
       })
       .then(modalEl => {
         modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(resultData => {
+        if (resultData.role === 'timeout') {
+          this.addItemToCurrentChanges (customer, oldEmotion, newEmotion);
+        } else if (resultData.role === 'cancel' && randomAdvice) {
+          this.askForAdviceRating(customer, randomAdvice);
+        }
       });
   }
 
-  private showAlertEntered(customer: Customer, message: string, customerEmotion: string) {
-    this.addItemToCurrentChanges (customer, null, customerEmotion);
+  private showAlertEntered(customer: Customer, message: string, customerEmotion: string, randomAdvice: Advice) {
     this.modalCtrl
     .create({
       component: AlertCustomerEntersComponent,
       cssClass: 'modal-retailer-emotion-css',
-      componentProps: {customer, message, customerEmotion}
+      componentProps: {customer, message, customerEmotion},
     })
     .then(modalEl => {
       modalEl.present();
+      return modalEl.onDidDismiss();
+      })
+    .then(resultData => {
+      if (resultData.role === 'timeout') {
+        this.addItemToCurrentChanges (customer, 'entered', customerEmotion);
+      } else if (resultData.role === 'cancel' && randomAdvice) {
+        this.askForAdviceRating(customer, randomAdvice);
+      }
     });
   }
 
@@ -277,6 +287,7 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   private showAlertLeft(message: string,  customer: Customer, verb: string) {
+    this.addItemToCurrentChanges (customer, 'left', null);
     this.alertCtrl.create(
       {header: `${customer.name} has ${verb} your shop!`,
       message,

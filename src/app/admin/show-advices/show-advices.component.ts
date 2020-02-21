@@ -36,6 +36,7 @@ export class ShowAdvicesComponent implements OnInit {
     this.advices.splice(index, 1);
     this.advicesService.deleteAdvice(advice).subscribe(() => {
       this.leaveMessage = 'confirm';
+      this.onCancel();
     });
   }
 

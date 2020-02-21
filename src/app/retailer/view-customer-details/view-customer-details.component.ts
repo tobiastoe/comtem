@@ -41,7 +41,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
   chartColors: Color[] = [
     {
       borderColor: '#000000',
-      backgroundColor: ['#10dc60', '#00c3ff', '#ffce00', '#f04141']
+      backgroundColor: ['#10dc60', '#0cd1e8', '#ffce00', '#f04141']
     }
   ];
   chartType = 'pie';

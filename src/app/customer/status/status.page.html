@@ -60,8 +60,8 @@
                 <ion-button *ngIf="loadedCustomer.emotion === 'Sad'" class="button-emotion" color="warning" size="large" expand="block" (click)="emotionChanged('Sad')">sad <br> exhausted</ion-button>  
               </ion-col>
               <ion-col size="6">
-                <ion-button *ngIf="loadedCustomer.emotion !== 'Relaxed'" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">satisfied <br> relaxed</ion-button>
-                <ion-button *ngIf="loadedCustomer.emotion === 'Relaxed'" class="button-emotion" color="medium" size="large" expand="block" (click)="emotionChanged('Relaxed')">satisfied <br> relaxed</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion !== 'Relaxed'" color="secondary" size="large" expand="block" (click)="emotionChanged('Relaxed')">satisfied <br> relaxed</ion-button>
+                <ion-button *ngIf="loadedCustomer.emotion === 'Relaxed'" class="button-emotion" color="secondary" size="large" expand="block" (click)="emotionChanged('Relaxed')">satisfied <br> relaxed</ion-button>
               </ion-col>
             </ion-row>
           </ion-card-content>

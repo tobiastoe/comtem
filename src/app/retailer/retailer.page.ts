@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { RetailerService } from './retailer.service';
 import { Retailer } from './retailer.model';
 import { Customer } from '../customer/customer.model';
-import { ModalController, AlertController, MenuController } from '@ionic/angular';
+import { ModalController, AlertController, MenuController, IonItemSliding } from '@ionic/angular';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 import { Advice } from './advice.model';
 import { AdviceRatingComponent } from './advice-rating/advice-rating.component';
@@ -25,6 +25,7 @@ export class RetailerPage implements OnInit, OnDestroy {
   isRefreshing = true;
   areCustomersinShop = false;
   email;
+  messageList: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -187,11 +188,64 @@ export class RetailerPage implements OnInit, OnDestroy {
     });
   }
 
+  addItemToCurrentChanges(customer: Customer, oldEmotion: string, newEmotion: string) {
+    let twoEmotionsOld;
+    let twoEmotionsNew;
+    let newMessage;
+
+    switch (oldEmotion) {
+      case 'Happy': {
+        twoEmotionsOld = 'excited';
+        break;
+      }
+      case 'Relaxed': {
+        twoEmotionsOld = 'satisfied';
+        break;
+      }
+      case 'Sad': {
+        twoEmotionsOld = 'sad';
+        break;
+      }
+      case 'Stressed': {
+        twoEmotionsOld = 'annoyed';
+        break;
+      }
+    }
+    switch (newEmotion) {
+      case 'Happy': {
+        twoEmotionsNew = 'excited';
+        break;
+      }
+      case 'Relaxed': {
+        twoEmotionsNew = 'satisfied';
+        break;
+      }
+      case 'Sad': {
+        twoEmotionsNew = 'sad';
+        break;
+      }
+      case 'Stressed': {
+        twoEmotionsNew = 'annoyed';
+        break;
+      }
+    }
+
+    if (oldEmotion) {
+      newMessage = customer.name + ' emotion changed from ' + twoEmotionsOld + ' to ' + twoEmotionsNew + '!';
+    } else if (!oldEmotion && newEmotion) {
+      newMessage = customer.name + ' has entered your shop. ' + customer.name + ' is feeling ' + twoEmotionsNew + '!';
+    } else {
+      newMessage = customer.name + ' has left your shop. ';
+    }
+    this.messageList.push(newMessage);
+  }
+
+  clearList() {
+    this.messageList = [];
+  }
+
   private showAlertEmotionChange(message: string, customer: Customer, oldEmotion: string, newEmotion: string) {
-    // this.alertCtrl.create(
-    //   {header: `${customer.name} emotion changed from ${oldEmotion} to ${newEmotion}`,
-    //   message,
-    //   buttons: ['Okay']}).then(alertEl => alertEl.present());
+    this.addItemToCurrentChanges (customer, oldEmotion, newEmotion);
     this.modalCtrl
       .create({
         component: AlertEmotionChangeComponent,
@@ -204,6 +258,7 @@ export class RetailerPage implements OnInit, OnDestroy {
   }
 
   private showAlertEntered(customer: Customer, message: string, customerEmotion: string) {
+    this.addItemToCurrentChanges (customer, null, customerEmotion);
     this.modalCtrl
     .create({
       component: AlertCustomerEntersComponent,
@@ -213,6 +268,12 @@ export class RetailerPage implements OnInit, OnDestroy {
     .then(modalEl => {
       modalEl.present();
     });
+  }
+
+  deleteMessage(message: string, slidingMessage: IonItemSliding) {
+    slidingMessage.close();
+    const index = this.messageList.indexOf(message, 0);
+    this.messageList.splice(index, 1);
   }
 
   private showAlertLeft(message: string,  customer: Customer, verb: string) {

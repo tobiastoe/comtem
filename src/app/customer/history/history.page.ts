@@ -60,7 +60,7 @@ export class HistoryPage implements OnInit, OnDestroy {
       }
       case 'Relaxed': {
         this.twoEmotions = 'satisfied / relaxed';
-        return 'medium';
+        return 'secondary';
       }
       case 'Sad': {
         this.twoEmotions = 'sad / exhausted';

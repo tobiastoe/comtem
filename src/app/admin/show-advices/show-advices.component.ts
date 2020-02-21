@@ -33,7 +33,7 @@ export class ShowAdvicesComponent implements OnInit {
   deleteAdvice(advice: Advice, slidingAdvice: IonItemSliding) {
     slidingAdvice.close();
     const index = this.advices.indexOf(advice, 0);
-    this.advices = this.advices.splice(index, 1);
+    this.advices.splice(index, 1);
     this.advicesService.deleteAdvice(advice).subscribe(() => {
       this.leaveMessage = 'confirm';
     });

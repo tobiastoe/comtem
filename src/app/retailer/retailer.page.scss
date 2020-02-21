@@ -6,7 +6,7 @@
     }
     .card-title {
         position: absolute;
-        top: 10%;
+        top: 15px;
         font-size: 1.5em;
         width: 100%;
         font-weight: bold;
@@ -14,11 +14,14 @@
     }
     .card-item {
         position: relative;
-        top: 25%;
+        top: 50px;
         font-size: 1.0em;
         width: 100%;
         font-weight: bold;
         color: #fff;        
         background: transparent;
+    }
+    .changes {
+        height: 490px;
     }
 }

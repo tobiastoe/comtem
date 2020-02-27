@@ -41,7 +41,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
   chartColors: Color[] = [
     {
       borderColor: '#000000',
-      backgroundColor: ['#10dc60', '#0cd1e8', '#ffce00', '#f04141']
+      backgroundColor: ['#10dc60', '#0cd1e8', '#7044ff', '#f04141']
     }
   ];
   chartType = 'pie';
@@ -64,15 +64,15 @@ export class ViewCustomerDetailsComponent implements OnInit {
         return 'success';
       }
       case 'Relaxed': {
-        this.twoEmotions = 'satisfied / relaxed';
-        return 'medium';
+        this.twoEmotions = 'pleased / relaxed';
+        return 'secondary';
       }
       case 'Sad': {
-        this.twoEmotions = 'sad / exhausted';
-        return 'warning';
+        this.twoEmotions = 'sad / tired';
+        return 'tertiary';
       }
       case 'Stressed': {
-        this.twoEmotions = 'annoyed / concerned';
+        this.twoEmotions = 'angry / frustrated';
         return 'danger';
       }
     }

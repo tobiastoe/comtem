@@ -28,6 +28,28 @@ export class ShowAdvicesComponent implements OnInit {
         this.relevantAdvices.push(advice);
       }
     }
+    switch (this.oldEmotion) {
+      case 'Happy':
+      this.oldEmotion = 'Excited';
+      break;
+      case 'Relaxed':
+      this.oldEmotion = 'Pleased';
+      break;
+      case 'Stressed':
+      this.oldEmotion = 'Angry';
+      break;
+    }
+    switch (this.newEmotion) {
+      case 'Happy':
+      this.newEmotion = 'Excited';
+      break;
+      case 'Relaxed':
+      this.newEmotion = 'Pleased';
+      break;
+      case 'Stressed':
+      this.newEmotion = 'Angry';
+      break;
+    }
   }
 
   deleteAdvice(advice: Advice, slidingAdvice: IonItemSliding) {

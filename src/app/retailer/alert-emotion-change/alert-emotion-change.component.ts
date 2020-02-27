@@ -32,15 +32,15 @@ export class AlertEmotionChangeComponent implements OnInit {
         break;
       }
       case 'Relaxed': {
-        this.twoEmotionsOld = 'satisfied / relaxed';
+        this.twoEmotionsOld = 'pleased / relaxed';
         break;
       }
       case 'Sad': {
-        this.twoEmotionsOld = 'sad / exhausted';
+        this.twoEmotionsOld = 'sad / tired';
         break;
       }
       case 'Stressed': {
-        this.twoEmotionsOld = 'annoyed / concerned';
+        this.twoEmotionsOld = 'angry / frustrated';
         break;
       }
     }
@@ -50,15 +50,15 @@ export class AlertEmotionChangeComponent implements OnInit {
         break;
       }
       case 'Relaxed': {
-        this.twoEmotionsNew = 'satisfied / relaxed';
+        this.twoEmotionsNew = 'pleased / relaxed';
         break;
       }
       case 'Sad': {
-        this.twoEmotionsNew = 'sad / exhausted';
+        this.twoEmotionsNew = 'sad / tired';
         break;
       }
       case 'Stressed': {
-        this.twoEmotionsNew = 'annoyed / concerned';
+        this.twoEmotionsNew = 'angry / frustrated';
         break;
       }
     }

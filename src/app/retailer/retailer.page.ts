@@ -195,7 +195,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         break;
       }
       case 'Relaxed': {
-        twoEmotionsOld = 'satisfied';
+        twoEmotionsOld = 'pleased';
         break;
       }
       case 'Sad': {
@@ -203,7 +203,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         break;
       }
       case 'Stressed': {
-        twoEmotionsOld = 'annoyed';
+        twoEmotionsOld = 'angry';
         break;
       }
     }
@@ -213,7 +213,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         break;
       }
       case 'Relaxed': {
-        twoEmotionsNew = 'satisfied';
+        twoEmotionsNew = 'pleased';
         break;
       }
       case 'Sad': {
@@ -221,7 +221,7 @@ export class RetailerPage implements OnInit, OnDestroy {
         break;
       }
       case 'Stressed': {
-        twoEmotionsNew = 'annoyed';
+        twoEmotionsNew = 'angry';
         break;
       }
     }

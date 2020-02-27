@@ -25,15 +25,15 @@ export class AlertCustomerEntersComponent implements OnInit {
         break;
       }
       case 'Relaxed': {
-        this.twoEmotions = 'satisfied / relaxed';
+        this.twoEmotions = 'pleased / relaxed';
         break;
       }
       case 'Sad': {
-        this.twoEmotions = 'sad / exhausted';
+        this.twoEmotions = 'sad / tired';
         break;
       }
       case 'Stressed': {
-        this.twoEmotions = 'annoyed / concerned';
+        this.twoEmotions = 'angry / frustrated';
         break;
       }
   }

@@ -19,22 +19,22 @@ export class PushupComponent implements OnInit {
     switch (this.customer.emotion) {
       case 'Happy': {
         this.imageUrl = 'https://firebasestorage.googleapis.com/v0/b/comtem-9282e.appspot.com/o/images%2F754ff516-647d-4aed-a766-f893238ad125-Happy.png?alt=media&token=754ff516-647d-4aed-a766-f893238ad125';
-        this.twoEmotions = 'excited / happy';
+        this.twoEmotions = 'erfreut / glücklich';
         break;
       }
       case 'Relaxed': {
         this.imageUrl = 'https://firebasestorage.googleapis.com/v0/b/comtem-9282e.appspot.com/o/images%2F9e819d27-9792-456d-bbfa-98e56ed295ef-Relaxed.png?alt=media&token=9e819d27-9792-456d-bbfa-98e56ed295ef';
-        this.twoEmotions = 'pleased / relaxed';
+        this.twoEmotions = 'zufrieden / entspannt';
         break;
       }
       case 'Sad': {
         this.imageUrl = 'https://firebasestorage.googleapis.com/v0/b/comtem-9282e.appspot.com/o/images%2F6e61766e-916f-4025-95da-aa36ea422ba0-Sad.png?alt=media&token=6e61766e-916f-4025-95da-aa36ea422ba0';
-        this.twoEmotions = 'sad / tired';
+        this.twoEmotions = 'traurig / erschöpft';
         break;
       }
       case 'Stressed': {
         this.imageUrl = 'https://firebasestorage.googleapis.com/v0/b/comtem-9282e.appspot.com/o/images%2F3bb6de0a-ce23-43e2-8557-7d3601aaa242-Stressed.png?alt=media&token=3bb6de0a-ce23-43e2-8557-7d3601aaa242';
-        this.twoEmotions = 'angry / frustrated';
+        this.twoEmotions = 'verärgert / besorgt';
         break;
       }
   }

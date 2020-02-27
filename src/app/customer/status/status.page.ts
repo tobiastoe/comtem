@@ -54,7 +54,8 @@ export class StatusPage implements OnInit, OnDestroy {
     this.loadedCustomer.lastEmotion = this.loadedCustomer.emotion;
     this.loadedCustomer.emotion = newEmotion;
     if (!this.loadedCustomer.currentShop) {
-      this.alertCtrl.create({message: 'Please select a shop first, if you want to save the emotion in your history!'}).then(alertEl =>
+      this.alertCtrl.create({message: 'Bitte wähle zuerst einen Shop aus, damit deine Stimmung im Verlauf gespeichert werden kann'})
+      .then(alertEl =>
         alertEl.present());
       setTimeout(alertEl => {
         this.alertCtrl.dismiss();

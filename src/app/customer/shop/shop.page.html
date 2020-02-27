@@ -4,7 +4,7 @@
           <ion-menu-button menu="customer"></ion-menu-button>
     </ion-buttons> 
     <ion-title *ngIf="isShopping && !isLoading">{{this.loadedCustomer.currentShop}}</ion-title>
-    <ion-title *ngIf="!isShopping && !isLoading">Start Shopping</ion-title>
+    <ion-title *ngIf="!isShopping && !isLoading">Starte deinen Einkauf</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,19 +15,19 @@
   <!-- <ion-searchbar showCancelButton="never" translucent *ngIf="!isLoading"></ion-searchbar>   -->
   <div *ngIf="!isShopping && !isLoading">
     <ion-card>
-      <ion-card-header color="danger">Please select the shop you're in!</ion-card-header>
+      <ion-card-header color="danger">Bitte wähle in den Shop aus, in dem Du dich befindest</ion-card-header>
     </ion-card>
   </div>
   <div *ngIf="isShopping && !isLoading">
     <ion-card>
-      <ion-card-title margin="5px" text-center>You're shopping in {{ this.loadedCustomer.currentShop}}</ion-card-title>
+      <ion-card-title margin="5px" text-center>Du befindest dich in {{ this.loadedCustomer.currentShop}}</ion-card-title>
       <ion-img [src]="this.currentRetailer.imageUrl" style="height: 150px;" margin-bottom="5px"></ion-img>
       <ion-card-content text-center>
         {{this.currentRetailer.address}}
         <!-- <br>
         {{this.currentRetailer.description}} -->
       </ion-card-content>
-      <ion-button fill="clear" color="danger" expand="block" (click)="shopChanged(currentRetailer)">Leave Shop</ion-button>
+      <ion-button fill="clear" color="danger" expand="block" (click)="shopChanged(currentRetailer)">Laden verlassen</ion-button>
     </ion-card>
   </div>
   <div *ngIf="!isLoading">

@@ -55,19 +55,19 @@ export class HistoryPage implements OnInit, OnDestroy {
     this.time = date.substring(11, 20);
     switch (currentEmotion) {
       case 'Happy': {
-        this.twoEmotions = 'excited / happy';
+        this.twoEmotions = 'erfreut / glücklich';
         return 'success';
       }
       case 'Relaxed': {
-        this.twoEmotions = 'pleased / relaxed';
+        this.twoEmotions = 'zufrieden / entspannt';
         return 'secondary';
       }
       case 'Sad': {
-        this.twoEmotions = 'sad / tired';
+        this.twoEmotions = 'traurig / erschöpft';
         return 'tertiary';
       }
       case 'Stressed': {
-        this.twoEmotions = 'angry / frustrated';
+        this.twoEmotions = 'verärgert / besorgt';
         return 'danger';
       }
     }
